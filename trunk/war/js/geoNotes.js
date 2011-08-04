@@ -84,10 +84,14 @@ function handleGeoNotesDataRequest(req) {
   if (geoNotes.length==0){
     var tr=document.createElement("tr");
     var td=document.createElement("td");
-    td.setAttribute("colspan","5");
+    td.setAttribute("colspan","6");
     td.appendChild(document.createTextNode("No nearby requests."));
     tr.appendChild(td);
     table.appendChild(tr);
+    var tableDiv=document.getElementById("geoNotesDiv");
+    removeChildrenFromElement(tableDiv);
+    // Update tableDiv with new table at end of processing to prevent multiple
+    // requests from interfering with each other
     tableDiv.appendChild(table);
   } else {
     // Make HTML for each geoNote
@@ -177,6 +181,20 @@ function sendNoVote(elem) {
 // Coordinates
 ///////////////////
 
+var geocoder = new google.maps.Geocoder();
+ 
+function geocodePosition(pos) {
+  geocoder.geocode({
+    latLng: pos
+  }, function(responses) {
+    if (responses && responses.length > 0) {
+      updateGeoStatus(responses[0].formatted_address);
+    } else {
+      updateGeoStatus('Cannot determine address at this location.');
+    }
+  });
+}  
+
 function getCoordinates() {
   var useGeoLocation=localStorage.getItem("useGeoLocation");
   if (useGeoLocation==null || useGeoLocation=="true") {
@@ -188,9 +206,13 @@ function getCoordinates() {
     } else {
       updateGeoStatus(locationNotAvailableMessage);
     }
-  } else {
-    var display=accuracyLabel + ": " + localStorage.getItem("accuracy") + "m";
-    updateGeoStatus(display);
+  } else {  
+    //var display=accuracyLabel + ": " + localStorage.getItem("accuracy") + "m";
+    //updateGeoStatus(display);
+    
+    var latLng = new google.maps.LatLng(localStorage.getItem("latitude"), localStorage.getItem("longitude"));
+    geocodePosition(latLng);
+    
     getGeoNotesData();
 
     // Update buttons
@@ -208,11 +230,14 @@ function setPosition(position){
     localStorage.setItem("longitude", position.coords.longitude);
     localStorage.setItem("accuracy", position.coords.accuracy);
     // Display accuracy
-    display=accuracyLabel + ": " + position.coords.accuracy + "m";
+    display="";//accuracyLabel + ": " + position.coords.accuracy + "m";
     // Update buttons
     document.getElementById("addButtonDisabled").style.display='none';
     document.getElementById('addButtonEnabled').style.display='inline';
     getGeoNotesData();
+    
+    var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    geocodePosition(latLng);
   }
   updateGeoStatus(display);
 }
