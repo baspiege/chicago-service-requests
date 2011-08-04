@@ -34,6 +34,7 @@ th {background-color: WhiteSmoke;}
 table {border-collapse:collapse;margin-top:1em;}
 table,th,td { padding: 3px; border: 1px solid black; word-wrap:break-word; }
 </style>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
 <script type="text/javascript">//<![CDATA[
 var waitingForCoordinatesMessage="<%=bundle.getString("waitingForCoordinatesMessage")%>";
 var locationNotAvailableMessage="<%=bundle.getString("locationNotAvailableMessage")%>";
@@ -43,23 +44,22 @@ var accuracyLabel="<%=bundle.getString("accuracyLabel")%>";
 </head>
 <body onload="getCoordinates();">
 <jsp:include page="/WEB-INF/pages/components/edits.jsp"/>
+
 <%-- Location --%>
-<div><span id="geoStatus"></span> <a style="margin-left:30px" href="location.jsp"><%=bundle.getString("changeLocationLabel")%></a></div>
+<div><span id="geoStatus"></span> <a href="location.jsp"><%=bundle.getString("changeLocationLabel")%></a></div>
 <%-- Add Note --%>
-<div style="margin-top:1em">
-<form id="geoNote" method="post" action="geoNotes.jsp" autocomplete="off">
-<input type="text" name="note" value="" id="note" title="<%=bundle.getString("noteLabel")%>" maxlength="500"/>
+
+<div style="margin-top:1.5em">
+<form id="geoNote" method="get" action="geoNoteAdjustLocation.jsp" autocomplete="off">
 <%-- Add --%>
 <input type="submit" style="display:inline" id="addButtonDisabled" disabled="disabled" value="<%=bundle.getString("addLabel")%>"/>
 <input type="submit" style="display:none" id="addButtonEnabled" name="action" onclick="setCoorindatesFormFields();this.style.display='none';document.getElementById('addButtonDisabled').style.display='inline';" value="<%=bundle.getString("addLabel")%>"/>
-<%-- Hidden fields --%>
-<input type="hidden" name="latitude" id="latitude" value=""/>
-<input type="hidden" name="longitude" id="longitude" value=""/>
-<input type="hidden" name="accuracy" id="accuracy" value=""/>
 </form>
 </div>
-<button style="margin-top:1em;" onclick="window.location='geoNotes.jsp';"><%=bundle.getString("refreshLabel")%></button>
-<div id="geoNotesDiv">
+
+
+
+<div style="margin-top:1.5em" id="geoNotesDiv">
 <p> Waiting for data... </p>
 </div>
 <script type="text/javascript" src="/js/geoNotes.js" />
