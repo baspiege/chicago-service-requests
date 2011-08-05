@@ -14,9 +14,9 @@ input:disabled {background:#dddddd;}
 <script type="text/javascript">//<![CDATA[
 
 function setFieldsFromLocalStorage() {
-  document.getElementById("latitude").value=localStorage.getItem("latitude");
-  document.getElementById("longitude").value=localStorage.getItem("longitude");
-  document.getElementById("accuracy").value=localStorage.getItem("accuracy");
+//  document.getElementById("latitude").value=localStorage.getItem("latitude");
+//  document.getElementById("longitude").value=localStorage.getItem("longitude");
+//  document.getElementById("accuracy").value=localStorage.getItem("accuracy");
 
   var useGeoLocation=localStorage.getItem("useGeoLocation");
   if (useGeoLocation==null || useGeoLocation=="true") {
@@ -59,9 +59,9 @@ function checkFloat(value) {
 }
 
 function disableInputs(disabled) {
-  document.getElementById("latitude").disabled=disabled;
-  document.getElementById("longitude").disabled=disabled;
-  document.getElementById("accuracy").disabled=disabled;
+//  document.getElementById("latitude").disabled=disabled;
+//  document.getElementById("longitude").disabled=disabled;
+//  document.getElementById("accuracy").disabled=disabled;
 }
 
 //]]></script>
@@ -72,11 +72,10 @@ function disableInputs(disabled) {
   <input type="radio" name="location" id="useOverride" value="useOverride" onclick="disableInputs(false);"/><label for="useOverride"><%=bundle.getString("locationBelowLabel")%></label>
 </p>
 <table>
-  <tr><td><%=bundle.getString("latitudeLabel")%>:</td><td><input type="text" name="latitude" id="latitude" title="<%=bundle.getString("latitudeLabel")%>"/></td></tr>
-  <tr><td><%=bundle.getString("longitudeLabel")%>:</td><td><input type="text" name="longitude" id="longitude" title="<%=bundle.getString("longitudeLabel")%>"/></td></tr>
-  <tr><td><%=bundle.getString("accuracyLabel")%> (m):</td><td><input type="text" name="accuracy" id="accuracy" title="<%=bundle.getString("accuracyLabel")%>"/></td></tr>
+  <tr><td><%=bundle.getString("positionLabel")%>:</td><td><span id="info"></span></td></tr>
+  <tr><td><%=bundle.getString("addressLabel")%>:</td><td><span id="address"></span></td></tr>
 </table>
-<div style="margin-top:30px">
+<div style="margin-top:1em;margin-bottom:1em;">
 <%-- Cancel --%>
 <input type="submit" name="action" value="<%=bundle.getString("cancelLabel")%>" onclick="window.location='geoNotes.jsp';"/>
 <%-- Update --%>
@@ -99,7 +98,7 @@ function geocodePosition(pos) {
 }
  
 function updateMarkerStatus(str) {
-  document.getElementById('markerStatus').innerHTML = str;
+  //document.getElementById('markerStatus').innerHTML = str;
 }
  
 function updateMarkerPosition(latLng) {
@@ -147,7 +146,7 @@ function initialize() {
   
     updateMarkerStatus('Drag ended');
     geocodePosition(marker.getPosition());
-    alert(marker.getPosition().lat());
+    //alert(marker.getPosition().lat());
     
     localStorage.setItem("latitude",checkFloat(marker.getPosition().lat()));
     localStorage.setItem("longitude",checkFloat(marker.getPosition().lng()));
@@ -161,8 +160,8 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <body> 
   <style> 
   #mapCanvas {
-    width: 500px;
-    height: 400px;
+    width: 300px;
+    height: 300px;
     float: left;
   }
   #infoPanel {
@@ -175,13 +174,5 @@ google.maps.event.addDomListener(window, 'load', initialize);
   </style> 
   
   <div id="mapCanvas"></div> 
-  <div id="infoPanel"> 
-    <b>Marker status:</b> 
-    <div id="markerStatus"><i>Click and drag the marker.</i></div> 
-    <b>Current position:</b> 
-    <div id="info"></div> 
-    <b>Closest matching address:</b> 
-    <div id="address"></div> 
-  </div> 
 </body> 
 </html> 

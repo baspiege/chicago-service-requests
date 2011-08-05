@@ -171,21 +171,5 @@ form {margin: 0px 0px 0px 0px; display: inline;}
 <input style="margin-left:30px" type="submit" name="action" value="<%=bundle.getString("deleteLabel")%>"/>
 </div>
 </form>
-<div style="margin-top:30px">
-<fieldset>
-<legend> Image </legend>
-<% if (geoNote!=null && geoNote.image!=null) { %>
-<img src="geoNoteImage?id=<%=new Long(geoNote.getKey().getId()).toString()%>" alt="Graffiti picture"/> <br/>
-<% } %>
-<form method="post" enctype="multipart/form-data" action="geoNote.jsp?action=Upload&id=<%=new Long(geoNote.getKey().getId()).toString()%>"> 
-<input type="file" name="imageFile">
-<br/>
-<input style="margin-top:30px" type="submit" name="action" value="Upload">
-</form>
-<form method="post" action="geoNote.jsp?id=<%=new Long(geoNote.getKey().getId()).toString()%>" autocomplete="off">
-<input style="margin-left:30px" type="submit" name="action" value="Remove">
-</form>
-</fieldset>
-</div>
 </body>
 </html>
