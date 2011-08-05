@@ -46,7 +46,7 @@ var accuracyLabel="<%=bundle.getString("accuracyLabel")%>";
 <jsp:include page="/WEB-INF/pages/components/edits.jsp"/>
 
 <%-- Location --%>
-<div><span id="geoStatus"></span> <a href="location.jsp"><%=bundle.getString("changeLocationLabel")%></a></div>
+<div><span id="geoStatus"></span><a style="margin-left:1em" href="location.jsp"><%=bundle.getString("changeLocationLabel")%></a></div>
 <%-- Add Note --%>
 
 <div style="margin-top:1.5em">

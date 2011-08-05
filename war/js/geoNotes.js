@@ -120,14 +120,20 @@ function handleGeoNotesDataRequest(req) {
       if (geoNote.getAttribute("img")=="true") {
         var imageCell=document.createElement("td")
         var imageLink=document.createElement("a");
-        imageLink.setAttribute("href","geoNote.jsp?id="+id);
+        imageLink.setAttribute("href","geoNoteImage.jsp?id="+id);
         var image=document.createElement("img");
         image.setAttribute("src","geoNoteThumbNailImage?id="+id);
         imageLink.appendChild(image);
         imageCell.appendChild(imageLink);
         tr.appendChild(imageCell);
       } else {
-        tr.appendChild(document.createElement("td"));
+        var imageCell=document.createElement("td")
+        var imageLink=document.createElement("a");
+        imageLink.setAttribute("href","geoNoteImage.jsp?id="+id);
+        imageLink.appendChild(document.createTextNode("Add"));
+        imageCell.appendChild(imageLink);
+        tr.appendChild(imageCell);
+        
       }
       // Type
       var type=document.createElement("td");
