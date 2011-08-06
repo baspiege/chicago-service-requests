@@ -158,7 +158,9 @@ form {margin: 0px 0px 0px 0px; display: inline;}
 <form method="post" enctype="multipart/form-data" action="geoNoteImage.jsp?action=Upload&id=<%=new Long(geoNote.getKey().getId()).toString()%>"> 
 <input type="file" name="imageFile">
 <br/>
-<input style="margin-top:30px" type="submit" name="action" value="Upload">
+<%-- Cancel --%>
+<input style="margin-top:30px;" type="submit" name="action" value="<%=bundle.getString("cancelLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
+<input style="margin-left:30px;margin-top:30px" type="submit" name="action" value="Upload">
 </form>
 <form method="post" action="geoNoteImage.jsp?id=<%=new Long(geoNote.getKey().getId()).toString()%>" autocomplete="off">
 <input style="margin-left:30px" type="submit" name="action" value="Remove">

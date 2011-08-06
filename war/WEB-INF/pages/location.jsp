@@ -77,9 +77,9 @@ function disableInputs(disabled) {
 </table>
 <div style="margin-top:1em;margin-bottom:1em;">
 <%-- Cancel --%>
-<input type="submit" name="action" value="<%=bundle.getString("cancelLabel")%>" onclick="window.location='geoNotes.jsp';"/>
+<input type="submit" name="action" value="<%=bundle.getString("cancelLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
 <%-- Update --%>
-<input type="submit" name="action" style="margin-left:30px" onclick="setFieldsIntoLocalStorage();window.location='geoNotes.jsp'" value="<%=bundle.getString("updateLabel")%>"/>
+<input type="submit" name="action" style="margin-left:30px" onclick="setFieldsIntoLocalStorage();window.location='geoNotes.jsp';return false;" value="<%=bundle.getString("updateLabel")%>"/>
 </div>
 
 <script type="text/javascript"> 
