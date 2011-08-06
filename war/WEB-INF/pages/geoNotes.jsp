@@ -47,18 +47,14 @@ var accuracyLabel="<%=bundle.getString("accuracyLabel")%>";
 
 <%-- Location --%>
 <div><span id="geoStatus"></span><a style="margin-left:1em" href="location.jsp"><%=bundle.getString("changeLocationLabel")%></a></div>
-<%-- Add Note --%>
-
 <div style="margin-top:1.5em">
 <form id="geoNote" method="get" action="geoNoteAdjustLocation.jsp" autocomplete="off">
-<%-- Add --%>
-<input type="submit" style="display:inline" id="addButtonDisabled" disabled="disabled" value="<%=bundle.getString("addLabel")%>"/>
-<input type="submit" style="display:none" id="addButtonEnabled" name="action" onclick="setCoorindatesFormFields();this.style.display='none';document.getElementById('addButtonDisabled').style.display='inline';" value="<%=bundle.getString("addLabel")%>"/>
+<%-- Add Button --%>
+<input type="submit" style="display:inline" id="addButtonDisabled" disabled="disabled" value="<%=bundle.getString("addNewRequestLabel")%>"/>
+<input type="submit" style="display:none" id="addButtonEnabled" name="action" onclick="this.style.display='none';document.getElementById('addButtonDisabled').style.display='inline';" value="<%=bundle.getString("addLabel")%>"/>
 </form>
 </div>
-
-
-
+<%-- Data --%>
 <div style="margin-top:1.5em" id="geoNotesDiv">
 <p> Waiting for data... </p>
 </div>
