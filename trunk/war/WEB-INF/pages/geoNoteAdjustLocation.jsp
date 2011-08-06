@@ -14,8 +14,8 @@ input:disabled {background:#dddddd;}
 <script type="text/javascript">//<![CDATA[
 
 function setFieldsFromLocalStorage() {
-  document.getElementById("latitude").value=localStorage.getItem("latitude");
-  document.getElementById("longitude").value=localStorage.getItem("longitude");
+//  document.getElementById("latitude").value=localStorage.getItem("latitude");
+//  document.getElementById("longitude").value=localStorage.getItem("longitude");
 }
 
 // If can be parsed, return float.  Else, return 0.
@@ -30,14 +30,13 @@ function checkFloat(value) {
 //]]></script>
 </head>
 <body onload="setFieldsFromLocalStorage()">
-<p>Adjust location.</p>
 <table>
   <tr><td><%=bundle.getString("positionLabel")%>:</td><td><span id="info"></span></td></tr>
   <tr><td><%=bundle.getString("addressLabel")%>:</td><td><span id="address"></span></td></tr>
 </table>
 <div style="margin-top:1em;margin-bottom:1em;">
 <%-- Cancel --%>
-<input type="submit" name="action" value="<%=bundle.getString("cancelLabel")%>" onclick="window.location='geoNotes.jsp';"/>
+<input type="submit" name="action" value="<%=bundle.getString("cancelLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
 <%-- Update --%>
 <input type="submit" name="action" style="margin-left:30px" onclick="window.location='geoNoteAdd.jsp'" value="<%=bundle.getString("nextLabel")%>"/>
 </div>
@@ -117,8 +116,8 @@ function initialize() {
     localStorage.setItem("latitude",marker.getPosition().lat());
     localStorage.setItem("longitude",marker.getPosition().lng());
     
-    localStorage.setItem("add-latitude",lat);
-    localStorage.setItem("add-longitude",lon);
+    localStorage.setItem("add-latitude",marker.getPosition().lat());
+    localStorage.setItem("add-longitude",marker.getPosition().lng());
 
     
   });

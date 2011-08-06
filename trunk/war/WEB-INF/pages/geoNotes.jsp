@@ -51,7 +51,7 @@ var accuracyLabel="<%=bundle.getString("accuracyLabel")%>";
 <form id="geoNote" method="get" action="geoNoteAdjustLocation.jsp" autocomplete="off">
 <%-- Add Button --%>
 <input type="submit" style="display:inline" id="addButtonDisabled" disabled="disabled" value="<%=bundle.getString("addNewRequestLabel")%>"/>
-<input type="submit" style="display:none" id="addButtonEnabled" name="action" onclick="this.style.display='none';document.getElementById('addButtonDisabled').style.display='inline';" value="<%=bundle.getString("addLabel")%>"/>
+<input type="submit" style="display:none" id="addButtonEnabled" name="action" onclick="this.style.display='none';document.getElementById('addButtonDisabled').style.display='inline';" value="<%=bundle.getString("addNewRequestLabel")%>"/>
 </form>
 </div>
 <%-- Data --%>

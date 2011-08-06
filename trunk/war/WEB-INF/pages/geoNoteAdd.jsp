@@ -20,10 +20,14 @@
             
             RequestUtils.getNumericInputAsDouble(request,"latitude",bundle.getString("latitudeLabel"),true);
             RequestUtils.getNumericInputAsDouble(request,"longitude",bundle.getString("longitudeLabel"),true);		
-            RequestUtils.getNumericInputAsDouble(request,"accuracy",bundle.getString("accuracyLabel"),true);		
+            request.setAttribute("accuracy",0d);		
 
             if (!RequestUtils.hasEdits(request)) {
                 new GeoNoteAdd().execute(request);
+                RequestUtils.resetAction(request);
+                %>
+                <jsp:forward page="/geoNotes.jsp"/>
+                <%
             }
         }
     }
@@ -31,8 +35,28 @@
 <%@ include file="/WEB-INF/pages/components/noCache.jsp" %>
 <%@ include file="/WEB-INF/pages/components/docType.jsp" %>
 <title><%=bundle.getString("geoNotesLabel")%></title>
+<script type="text/javascript">
+function setFieldsFromLocalStorage() {
+  document.getElementById("latitude").value=localStorage.getItem("add-latitude");
+  document.getElementById("longitude").value=localStorage.getItem("add-longitude");
+}
+
+function clearLocalStorage() {
+  localStorage.removeItem("add-latitude");
+  localStorage.removeItem("add-longitude");
+}
+
+// If can be parsed, return float.  Else, return 0.
+function checkFloat(value) {
+  var returnValue=parseFloat(value);
+  if (isNaN(returnValue)){
+    returnValue=0;
+  }
+  return returnValue;
+}
+</script>
 </head>
-<body>
+<body onload="setFieldsFromLocalStorage();">
 <jsp:include page="/WEB-INF/pages/components/edits.jsp"/>
 
 <%-- Add Note --%>
@@ -47,11 +71,16 @@
 </td></tr>
 <tr><td>Description:</td><td><input type="text" name="note" value="" id="note" title="<%=bundle.getString("noteLabel")%>" maxlength="500"/></td></tr>
 </table>
-<%-- Add --%>
-</p>
 <p>
+<%-- Back --%>
+<input type="submit" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNoteAdjustLocation.jsp';return false;"/>
+
 <%-- Cancel --%>
-<input type="submit" name="action" value="<%=bundle.getString("cancelLabel")%>" onclick="window.location='geoNoteAdjustLocation.jsp';return false;"/>
+<input style="margin-left:30px;" type="submit" name="action" value="<%=bundle.getString("cancelLabel")%>" onclick="clearLocalStorage();window.location='geoNotes.jsp';return false;"/>
+
+<%-- Add --%>
+<input id="latitude" type="hidden" name="latitude" value="" />
+<input id="longitude" type="hidden" name="longitude" value="" />
 <input type="submit" style="margin-left:30px;display:none" id="addButtonDisabled" disabled="disabled" value="<%=bundle.getString("addLabel")%>"/>
 <input type="submit" style="margin-left:30px;display:inline" id="addButtonEnabled" name="action" onclick="setCoorindatesFormFields();this.style.display='none';document.getElementById('addButtonDisabled').style.display='inline';" value="<%=bundle.getString("addLabel")%>"/>
 </p>
