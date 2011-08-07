@@ -11,16 +11,10 @@
 input:disabled {background:#dddddd;}
 </style>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
-<script type="text/javascript">//<![CDATA[
-
+<script type="text/javascript">
 function setFieldsFromLocalStorage() {
-//  document.getElementById("latitude").value=localStorage.getItem("latitude");
-//  document.getElementById("longitude").value=localStorage.getItem("longitude");
-//  document.getElementById("accuracy").value=localStorage.getItem("accuracy");
-
   var useGeoLocation=localStorage.getItem("useGeoLocation");
   if (useGeoLocation==null || useGeoLocation=="true") {
-    disableInputs(true);
     document.getElementById("useGeoLocation").checked="checked";
   } else {
     document.getElementById("useOverride").checked="checked";
@@ -32,20 +26,6 @@ function setFieldsIntoLocalStorage() {
     localStorage.setItem("useGeoLocation","true");
   } else {
     localStorage.setItem("useGeoLocation","false");
-
-    // Latitude
-    /*
-    var latitude=document.getElementById("latitude").value;
-    localStorage.setItem("latitude",checkFloat(latitude));
-
-    // Longitude
-    var longitude=document.getElementById("longitude").value;
-    localStorage.setItem("longitude",checkFloat(longitude));
-
-    // Accuracy
-    var accuracy=document.getElementById("accuracy").value;
-    localStorage.setItem("accuracy",checkFloat(accuracy));
-    */
   }
 }
 
@@ -57,19 +37,12 @@ function checkFloat(value) {
   }
   return returnValue;
 }
-
-function disableInputs(disabled) {
-//  document.getElementById("latitude").disabled=disabled;
-//  document.getElementById("longitude").disabled=disabled;
-//  document.getElementById("accuracy").disabled=disabled;
-}
-
-//]]></script>
+</script>
 </head>
 <body onload="setFieldsFromLocalStorage()">
 <p>
-  <input type="radio" name="location" id="useGeoLocation" value="useGeoLocation" onclick="disableInputs(true);"/><label for="useGeoLocation"><%=bundle.getString("currentLocationLabel")%></label>
-  <input type="radio" name="location" id="useOverride" value="useOverride" onclick="disableInputs(false);"/><label for="useOverride"><%=bundle.getString("locationBelowLabel")%></label>
+  <input type="radio" name="location" id="useGeoLocation" value="useGeoLocation"/><label for="useGeoLocation"><%=bundle.getString("currentLocationLabel")%></label>
+  <input type="radio" name="location" id="useOverride" value="useOverride"/><label for="useOverride"><%=bundle.getString("locationBelowLabel")%></label>
 </p>
 <table>
   <tr><td><%=bundle.getString("positionLabel")%>:</td><td><span id="info"></span></td></tr>
@@ -81,10 +54,9 @@ function disableInputs(disabled) {
 <%-- Update --%>
 <input type="submit" name="action" style="margin-left:30px" onclick="setFieldsIntoLocalStorage();window.location='geoNotes.jsp';return false;" value="<%=bundle.getString("updateLabel")%>"/>
 </div>
-
 <script type="text/javascript"> 
 var geocoder = new google.maps.Geocoder();
- 
+
 function geocodePosition(pos) {
   geocoder.geocode({
     latLng: pos
@@ -95,10 +67,6 @@ function geocodePosition(pos) {
       updateMarkerAddress('Cannot determine address at this location.');
     }
   });
-}
- 
-function updateMarkerStatus(str) {
-  //document.getElementById('markerStatus').innerHTML = str;
 }
  
 function updateMarkerPosition(latLng) {
@@ -123,7 +91,7 @@ function initialize() {
   }); 
   var marker = new google.maps.Marker({
     position: latLng,
-    title: 'Point A',
+    title: 'Location',
     map: map,
     draggable: true
   });
@@ -134,23 +102,17 @@ function initialize() {
   
   // Add dragging event listeners.
   google.maps.event.addListener(marker, 'dragstart', function() {
-    updateMarkerAddress('Dragging...');
+    updateMarkerAddress('');
   });
   
   google.maps.event.addListener(marker, 'drag', function() {
-    updateMarkerStatus('Dragging...');
     updateMarkerPosition(marker.getPosition());
   });
   
   google.maps.event.addListener(marker, 'dragend', function() {
-  
-    updateMarkerStatus('Drag ended');
     geocodePosition(marker.getPosition());
-    //alert(marker.getPosition().lat());
-    
     localStorage.setItem("latitude",checkFloat(marker.getPosition().lat()));
     localStorage.setItem("longitude",checkFloat(marker.getPosition().lng()));
-    
   });
 }
  
@@ -158,21 +120,20 @@ function initialize() {
 google.maps.event.addDomListener(window, 'load', initialize);
 </script> 
 <body> 
-  <style> 
-  #mapCanvas {
-    width: 300px;
-    height: 300px;
-    float: left;
-  }
-  #infoPanel {
-    float: left;
-    margin-left: 10px;
-  }
-  #infoPanel div {
-    margin-bottom: 5px;
-  }
-  </style> 
-  
-  <div id="mapCanvas"></div> 
+<style> 
+#mapCanvas {
+  width: 300px;
+  height: 300px;
+  float: left;
+}
+#infoPanel {
+  float: left;
+  margin-left: 10px;
+}
+#infoPanel div {
+  margin-bottom: 5px;
+}
+</style>   
+<div id="mapCanvas"></div> 
 </body> 
 </html> 

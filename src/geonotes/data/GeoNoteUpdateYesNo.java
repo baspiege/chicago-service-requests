@@ -41,8 +41,6 @@ public class GeoNoteUpdateYesNo {
             
                 if (vote.equals("yes")){
                   geoNote.setYes(geoNote.yes+1);
-                } else if (vote.equals("no")){
-                  geoNote.setNo(geoNote.no+1);                
                 }
             }
         } catch (Exception e) {

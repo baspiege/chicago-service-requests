@@ -10,18 +10,16 @@
     ResourceBundle bundle = ResourceBundle.getBundle("Text");
 
     // Process based on action
-    if (!RequestUtils.isForwarded(request) && !StringUtils.isEmpty(action)) {
+    String note="";
+    String type="";
+    System.out.println(request.getMethod());
+    if (!RequestUtils.isForwarded(request) && !StringUtils.isEmpty(action) && request.getMethod().equalsIgnoreCase("POST")) {
         if (action.equals(bundle.getString("addLabel"))) {		
-
             // Get fields
-            RequestUtils.getAlphaInput(request,"note",bundle.getString("noteLabel"),true);
-            
-            // Set from local storage
-            
+            note=RequestUtils.getAlphaInput(request,"note",bundle.getString("noteLabel"),false);
             RequestUtils.getNumericInputAsDouble(request,"latitude",bundle.getString("latitudeLabel"),true);
             RequestUtils.getNumericInputAsDouble(request,"longitude",bundle.getString("longitudeLabel"),true);		
-            request.setAttribute("accuracy",0d);		
-
+            RequestUtils.getNumericInput(request,"type",bundle.getString("typeLabel"),true);		
             if (!RequestUtils.hasEdits(request)) {
                 new GeoNoteAdd().execute(request);
                 RequestUtils.resetAction(request);
@@ -58,26 +56,19 @@ function checkFloat(value) {
 </head>
 <body onload="setFieldsFromLocalStorage();">
 <jsp:include page="/WEB-INF/pages/components/edits.jsp"/>
-
-<%-- Add Note --%>
-
-<form id="geoNote" method="get" action="geoNoteAdd.jsp" autocomplete="off">
+<%-- Fields --%>
+<form id="geoNote" method="post" action="geoNoteAdd.jsp" autocomplete="off">
 <table>
 <tr><td>Type:</td><td>
-<select>
-<option>Graffiti</option>
-<option>Street Light Out</option>
-</select>
+<jsp:include page="/WEB-INF/pages/components/selectType.jsp"/>
 </td></tr>
-<tr><td>Description:</td><td><input type="text" name="note" value="" id="note" title="<%=bundle.getString("noteLabel")%>" maxlength="500"/></td></tr>
+<tr><td><%=bundle.getString("noteLabel")%>:</td><td><input type="text" name="note" value="<%=note%>" id="note" title="<%=bundle.getString("noteLabel")%>" maxlength="500"/></td></tr>
 </table>
 <p>
 <%-- Back --%>
 <input type="submit" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNoteAdjustLocation.jsp';return false;"/>
-
 <%-- Cancel --%>
 <input style="margin-left:30px;" type="submit" name="action" value="<%=bundle.getString("cancelLabel")%>" onclick="clearLocalStorage();window.location='geoNotes.jsp';return false;"/>
-
 <%-- Add --%>
 <input id="latitude" type="hidden" name="latitude" value="" />
 <input id="longitude" type="hidden" name="longitude" value="" />
@@ -85,7 +76,5 @@ function checkFloat(value) {
 <input type="submit" style="margin-left:30px;display:inline" id="addButtonEnabled" name="action" onclick="setCoorindatesFormFields();this.style.display='none';document.getElementById('addButtonDisabled').style.display='inline';" value="<%=bundle.getString("addLabel")%>"/>
 </p>
 </form>
-
-
 </body>
 </html>

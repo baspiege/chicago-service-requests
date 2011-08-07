@@ -42,12 +42,11 @@ public class GeoNoteBulkAdd {
             
                 GeoNote geoNote=new GeoNote();
                 geoNote.setNote(parts[5] + " " + parts[6]);
-                geoNote.setLastUpdateTime(new Date());  // use time from input?
+                geoNote.setLastUpdateTime(new Date());  // TODO Update this
                 geoNote.setLatitude(new Double(parts[11]).doubleValue());
                 geoNote.setLongitude(new Double(parts[12]).doubleValue());
-                geoNote.setAccuracy(0);
                 geoNote.setYes(0);
-                geoNote.setNo(0);
+                geoNote.setType(0); // TODO Update this
                 
                 // Save
                 pm.makePersistent(geoNote);

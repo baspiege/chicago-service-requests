@@ -54,13 +54,10 @@ public class GeoNote implements Serializable {
     public double latitude2Decimal;
     
     @Persistent 
-    public double accuracy;
-    
-    @Persistent 
     public long yes;
     
     @Persistent 
-    public long no;
+    public long type;
  
     /**
      * Constructor.
@@ -108,19 +105,14 @@ public class GeoNote implements Serializable {
         longitude2Decimal=NumberUtils.getNumber2DecimalPrecision(aLongitude);
         longitude=aLongitude; 
     }
-    
-    public void setAccuracy(double aAccuracy)
-    { 
-        accuracy=aAccuracy; 
-    }
-    
+        
     public void setYes(long aYes)
     { 
         yes=aYes; 
     }
     
-    public void setNo(long aNo)
+    public void setType(long aType)
     { 
-        no=aNo; 
+        type=aType; 
     }
 }
