@@ -11,7 +11,7 @@
 input:disabled {background:#dddddd;}
 </style>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
-<script type="text/javascript">//<![CDATA[
+<script type="text/javascript">
 
 function setFieldsFromLocalStorage() {
 //  document.getElementById("latitude").value=localStorage.getItem("latitude");
@@ -27,7 +27,7 @@ function checkFloat(value) {
   return returnValue;
 }
 
-//]]></script>
+</script>
 </head>
 <body onload="setFieldsFromLocalStorage()">
 <table>
@@ -54,10 +54,6 @@ function geocodePosition(pos) {
       updateMarkerAddress('Cannot determine address at this location.');
     }
   });
-}
- 
-function updateMarkerStatus(str) {
- // document.getElementById('markerStatus').innerHTML = str;
 }
  
 function updateMarkerPosition(latLng) {
@@ -101,25 +97,16 @@ function initialize() {
   });
   
   google.maps.event.addListener(marker, 'drag', function() {
-    updateMarkerStatus('...');
     updateMarkerPosition(marker.getPosition());
   });
   
   google.maps.event.addListener(marker, 'dragend', function() {
-  
-    updateMarkerStatus('Drag ended');
     geocodePosition(marker.getPosition());
-    //alert(marker.getPosition().lat());
-    
- //   map.setCenter(marker.getPosition())
-    
+    // map.setCenter(marker.getPosition())
     localStorage.setItem("latitude",marker.getPosition().lat());
     localStorage.setItem("longitude",marker.getPosition().lng());
-    
     localStorage.setItem("add-latitude",marker.getPosition().lat());
     localStorage.setItem("add-longitude",marker.getPosition().lng());
-
-    
   });
 }
  
@@ -127,21 +114,20 @@ function initialize() {
 google.maps.event.addDomListener(window, 'load', initialize);
 </script> 
 <body> 
-  <style> 
-  #mapCanvas {
-    width: 300px;
-    height: 300px;
-    float: left;
-  }
-  #infoPanel {
-    float: left;
-    margin-left: 10px;
-  }
-  #infoPanel div {
-    margin-bottom: 5px;
-  }
-  </style> 
-  
-  <div id="mapCanvas"></div>  
+<style> 
+#mapCanvas {
+  width: 300px;
+  height: 300px;
+  float: left;
+}
+#infoPanel {
+  float: left;
+  margin-left: 10px;
+}
+#infoPanel div {
+  margin-bottom: 5px;
+}
+</style>   
+<div id="mapCanvas"></div>  
 </body> 
 </html> 

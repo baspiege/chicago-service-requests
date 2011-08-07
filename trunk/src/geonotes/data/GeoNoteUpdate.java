@@ -32,7 +32,7 @@ public class GeoNoteUpdate {
         String note=(String)aRequest.getAttribute("note");
         Double longitude=(Double)aRequest.getAttribute("longitude");
         Double latitude=(Double)aRequest.getAttribute("latitude");
-        Double accuracy=(Double)aRequest.getAttribute("accuracy");
+        Long type=(Long)aRequest.getAttribute("type");
 
         PersistenceManager pm=null;
         try {
@@ -41,11 +41,24 @@ public class GeoNoteUpdate {
             GeoNote geoNote=GeoNoteGetSingle.getGeoNote(aRequest,pm,geoNoteId.longValue());
             
             if (geoNote!=null){
-                geoNote.setNote(note);
+            
+                if (note!=null) {
+                    geoNote.setNote(note);
+                }
+                    
                 geoNote.setLastUpdateTime(new Date());
-                geoNote.setLongitude(longitude.doubleValue());
-                geoNote.setLatitude(latitude.doubleValue());
-                geoNote.setAccuracy(accuracy.doubleValue());
+
+                if (longitude!=null) {
+                    geoNote.setLongitude(longitude.doubleValue());
+                }
+                
+                if (latitude!=null) {
+                    geoNote.setLatitude(latitude.doubleValue());
+                }
+                
+                if (type!=null) {
+                    geoNote.setType(type.longValue());
+                }
             }
         } catch (Exception e) {
             System.err.println(this.getClass().getName() + ": " + e);

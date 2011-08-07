@@ -130,6 +130,7 @@ function handleGeoNotesDataRequest(req) {
         var imageCell=document.createElement("td")
         var imageLink=document.createElement("a");
         imageLink.setAttribute("href","geoNoteImage.jsp?id="+id);
+        imageLink.setAttribute("class","add");
         imageLink.appendChild(document.createTextNode("Add"));
         imageCell.appendChild(imageLink);
         tr.appendChild(imageCell);
@@ -139,7 +140,7 @@ function handleGeoNotesDataRequest(req) {
       var type=document.createElement("td");
       var typeLink=document.createElement("a");
       typeLink.setAttribute("href","geoNote.jsp?id="+id);
-      typeLink.appendChild(document.createTextNode("Graffiti"));
+      typeLink.appendChild(document.createTextNode(geoNote.getAttribute("type")));
       //typeLink.appendChild(document.createTextNode(geoNote.getAttribute("text")));
       type.appendChild(typeLink);
       tr.appendChild(type);
@@ -147,7 +148,12 @@ function handleGeoNotesDataRequest(req) {
       var desc=document.createElement("td");
       var descLink=document.createElement("a");
       descLink.setAttribute("href","geoNote.jsp?id="+id);
-      descLink.appendChild(document.createTextNode(geoNote.getAttribute("text")));
+      var text=geoNote.getAttribute("text");
+      if (text=="") {
+        text="Add";
+        descLink.setAttribute("class","add");
+      }
+      descLink.appendChild(document.createTextNode(text));
       desc.appendChild(descLink);
       tr.appendChild(desc);
       table.appendChild(tr);
@@ -172,15 +178,6 @@ function sendYesVote(elem) {
   tr.setAttribute("yes",yes+1);
   elem.innerHTML=yes+1;
   sendRequest('vote.jsp?vote=yes&id='+id);
-}
-
-function sendNoVote(elem) {
-  var tr=elem.parentNode.parentNode;
-  var no=parseInt(tr.getAttribute("no"));
-  var id=parseInt(tr.getAttribute("id"));
-  tr.setAttribute("no",no+1);
-  elem.innerHTML=no+1;
-  sendRequest('vote.jsp?vote=no&id='+id);
 }
 
 ///////////////////
@@ -343,18 +340,6 @@ function sortByVoteYesDescending(note1,note2) {
   }
 }
 
-function sortByVoteNoDescending(note1,note2) {
-  var vote1=parseInt(note1.getAttribute("no"));
-  var vote2=parseInt(note2.getAttribute("no"));
-  if (vote1>vote2) {
-      return -1;
-  } else if (vote2>vote1) {
-      return 1;
-  } else {
-      return 0;
-  }
-}
-
 function reorderGeoNotesByTimeDescending() {
   localStorage.setItem("sortBy","time");
   reorderGeoNotes(sortByTimeDescending);
@@ -368,11 +353,6 @@ function reorderGeoNotesByDistanceAscending() {
 function reorderGeoNotesByVoteYesDescending() {
   localStorage.setItem("sortBy","voteYes");
   reorderGeoNotes(sortByVoteYesDescending);
-}
-
-function reorderGeoNotesByVoteNoDescending() {
-  localStorage.setItem("sortBy","voteNo");
-  reorderGeoNotes(sortByVoteNoDescending);
 }
 
 ///////////////////
@@ -426,8 +406,6 @@ function updateNotesDispay() {
     reorderGeoNotesByTimeDescending();
   } else if (sortBy=="voteYes") {
     reorderGeoNotesByVoteYesDescending();
-  } else if (sortBy=="voteNo") {
-    reorderGeoNotesByVoteNoDescending();
   }
 }
 
