@@ -138,14 +138,14 @@ function handleGeoNotesDataRequest(req) {
       // Type
       var type=document.createElement("td");
       var typeLink=document.createElement("a");
-      typeLink.setAttribute("href","geoNote.jsp?id="+id);
+      typeLink.setAttribute("href","geoNoteUpdate.jsp?id="+id);
       typeLink.appendChild(document.createTextNode(geoNote.getAttribute("type")));
       type.appendChild(typeLink);
       tr.appendChild(type);
       // Desc
       var desc=document.createElement("td");
       var descLink=document.createElement("a");
-      descLink.setAttribute("href","geoNote.jsp?id="+id);
+      descLink.setAttribute("href","geoNoteUpdate.jsp?id="+id);
       var text=geoNote.getAttribute("text");
       if (text=="") {
         text="Add";
@@ -175,7 +175,7 @@ function sendYesVote(elem) {
   var id=parseInt(tr.getAttribute("id"));
   tr.setAttribute("yes",yes+1);
   elem.innerHTML=yes+1;
-  sendRequest('vote.jsp?vote=yes&id='+id);
+  sendRequest('GeoNoteVote.jsp?vote=yes&id='+id);
 }
 
 ///////////////////
