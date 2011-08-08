@@ -77,7 +77,7 @@
 <title><%=bundle.getString("geoNoteLabel")%></title>
 </head>
 <body>
-<form id="geoNote" method="post" action="geoNote.jsp" autocomplete="off">
+<form id="geoNote" method="post" action="geoNoteUpdate.jsp" autocomplete="off">
 <jsp:include page="/WEB-INF/pages/components/edits.jsp"/>
 <table>
 <tr><td><%=bundle.getString("typeLabel")%>:</td><td><jsp:include page="/WEB-INF/pages/components/selectType.jsp"/></td></tr>
