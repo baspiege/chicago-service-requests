@@ -134,14 +134,12 @@ function handleGeoNotesDataRequest(req) {
         imageLink.appendChild(document.createTextNode("Add"));
         imageCell.appendChild(imageLink);
         tr.appendChild(imageCell);
-        
       }
       // Type
       var type=document.createElement("td");
       var typeLink=document.createElement("a");
       typeLink.setAttribute("href","geoNote.jsp?id="+id);
       typeLink.appendChild(document.createTextNode(geoNote.getAttribute("type")));
-      //typeLink.appendChild(document.createTextNode(geoNote.getAttribute("text")));
       type.appendChild(typeLink);
       tr.appendChild(type);
       // Desc
@@ -209,15 +207,10 @@ function getCoordinates() {
     } else {
       updateGeoStatus(locationNotAvailableMessage);
     }
-  } else {  
-    //var display=accuracyLabel + ": " + localStorage.getItem("accuracy") + "m";
-    //updateGeoStatus(display);
-    
+  } else {      
     var latLng = new google.maps.LatLng(localStorage.getItem("latitude"), localStorage.getItem("longitude"));
     geocodePosition(latLng);
-    
     getGeoNotesData();
-
     // Update buttons
     document.getElementById("addButtonDisabled").style.display='none';
     document.getElementById('addButtonEnabled').style.display='inline';
@@ -231,7 +224,6 @@ function setPosition(position){
     // Set global variables
     localStorage.setItem("latitude", position.coords.latitude);
     localStorage.setItem("longitude", position.coords.longitude);
-    localStorage.setItem("accuracy", position.coords.accuracy);
     // Display accuracy
     display="";//accuracyLabel + ": " + position.coords.accuracy + "m";
     // Update buttons
@@ -248,7 +240,6 @@ function setPosition(position){
 function setCoorindatesFormFields(){
     document.getElementById("latitude").value=localStorage.getItem("latitude");
     document.getElementById("longitude").value=localStorage.getItem("longitude");
-    document.getElementById("accuracy").value=localStorage.getItem("accuracy");
 }
 
 if (typeof(Number.prototype.toRad) === "undefined") {
@@ -393,6 +384,7 @@ function updateNotesDispay() {
     // Bearing
     var bearingDegrees=calculateBearing(latitude, longitude, noteLat, noteLon);
     display+=" " + getCardinalDirection(bearingDegrees);
+    display="<a href='geoNoteUpdateLocation.jsp?id=" + note.getAttribute("id") + "'>"+display+"</a>";
     // Update direction display
     note.getElementsByTagName("td")[0].innerHTML=display;
     // Update time display

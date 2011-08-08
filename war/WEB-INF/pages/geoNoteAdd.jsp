@@ -56,7 +56,7 @@ function clearAddPositionFromLocalStorage() {
 </table>
 <p>
 <%-- Back --%>
-<input type="submit" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNoteAdjustLocation.jsp';return false;"/>
+<input type="submit" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNoteAddLocation.jsp';return false;"/>
 <%-- Cancel --%>
 <input style="margin-left:30px;" type="submit" name="action" value="<%=bundle.getString("cancelLabel")%>" onclick="clearAddPositionFromLocalStorage();window.location='geoNotes.jsp';return false;"/>
 <%-- Add --%>
