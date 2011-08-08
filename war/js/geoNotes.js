@@ -69,7 +69,7 @@ function handleGeoNotesDataRequest(req) {
   var th4=document.createElement("th");
   tr.appendChild(th4);
   th4.appendChild(document.createTextNode("Image"));
-  // Note
+  // Type
   var th5=document.createElement("th");
   tr.appendChild(th5);
   th5.appendChild(document.createTextNode("Type"));  

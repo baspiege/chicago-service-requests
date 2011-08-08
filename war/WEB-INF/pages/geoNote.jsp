@@ -1,4 +1,4 @@
-<%-- This JSP has the HTML for Geo Notes page. --%>
+<%-- This JSP has the HTML for Geo Note page. --%>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@ page language="java"%>
 <%@ page import="java.text.SimpleDateFormat" %>
@@ -39,7 +39,7 @@
     }
 
     // Process based on action
-    if (!StringUtils.isEmpty(action) && request.getMethod().equalsIgnoreCase("POST")) {
+    if (!StringUtils.isEmpty(action)) {
         if (action.equals(bundle.getString("updateLabel"))) {		
             // Fields
             RequestUtils.getAlphaInput(request,"note",bundle.getString("noteLabel"),false);
