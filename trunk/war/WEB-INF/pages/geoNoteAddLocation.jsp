@@ -47,8 +47,8 @@ function updateMarkerAddress(str) {
 }
 
 function initialize() {
-  var lat=localStorage.setItem("add-latitude");
-  var lon=localStorage.setItem("add-longitude");
+  var lat=localStorage.getItem("add-latitude");
+  var lon=localStorage.getItem("add-longitude");
   // If null, reset from lat/lon
   if (lat==null || lon==null) {
     lat=localStorage.getItem("latitude");
@@ -85,8 +85,6 @@ function initialize() {
   google.maps.event.addListener(marker, 'dragend', function() {
     geocodePosition(marker.getPosition());
     // map.setCenter(marker.getPosition())
-    localStorage.setItem("latitude",marker.getPosition().lat());
-    localStorage.setItem("longitude",marker.getPosition().lng());
     localStorage.setItem("add-latitude",marker.getPosition().lat());
     localStorage.setItem("add-longitude",marker.getPosition().lng());
   });
