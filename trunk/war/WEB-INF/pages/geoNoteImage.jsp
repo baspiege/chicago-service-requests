@@ -8,7 +8,6 @@
 <%@ page import="geonotes.data.GeoNoteGetSingle" %>
 <%@ page import="geonotes.data.GeoNoteImageRemove" %>
 <%@ page import="geonotes.data.GeoNoteImageUpdate" %>
-<%@ page import="geonotes.data.GeoNoteUpdate" %>
 <%@ page import="geonotes.data.model.GeoNote" %>
 <%@ page import="geonotes.utils.RequestUtils" %>
 <%@ page import="geonotes.utils.StringUtils" %>

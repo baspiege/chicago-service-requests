@@ -21,6 +21,10 @@ a.add:visited {text-decoration:none; color:#909090; font-size:small;}
 var waitingForCoordinatesMessage="<%=bundle.getString("waitingForCoordinatesMessage")%>";
 var locationNotAvailableMessage="<%=bundle.getString("locationNotAvailableMessage")%>";
 var locationNotFoundMessage="<%=bundle.getString("locationNotFoundMessage")%>";
+function clearAddPositionFromLocalStorage() {
+  localStorage.removeItem("add-latitude");
+  localStorage.removeItem("add-longitude");
+}
 </script>
 </head>
 <body onload="getCoordinates();">
@@ -28,11 +32,9 @@ var locationNotFoundMessage="<%=bundle.getString("locationNotFoundMessage")%>";
 <%-- Location --%>
 <div><span id="geoStatus"></span><a style="margin-left:1em" href="location.jsp"><%=bundle.getString("changeLocationLabel")%></a></div>
 <div style="margin-top:1.5em">
-<form id="geoNote" method="get" action="geoNoteAdjustLocation.jsp" autocomplete="off">
 <%-- Add Button --%>
 <input type="submit" style="display:inline" id="addButtonDisabled" disabled="disabled" value="<%=bundle.getString("addNewRequestLabel")%>"/>
-<input type="submit" style="display:none" id="addButtonEnabled" name="action" onclick="this.style.display='none';document.getElementById('addButtonDisabled').style.display='inline';" value="<%=bundle.getString("addNewRequestLabel")%>"/>
-</form>
+<input type="submit" style="display:none" id="addButtonEnabled" name="action" onclick="this.style.display='none';document.getElementById('addButtonDisabled').style.display='inline';clearAddPositionFromLocalStorage();window.location='geoNoteAdjustLocation.jsp';" value="<%=bundle.getString("addNewRequestLabel")%>"/>
 </div>
 <%-- Data --%>
 <div style="margin-top:1.5em" id="geoNotesDiv">

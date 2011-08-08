@@ -9,11 +9,11 @@
     String action=RequestUtils.getAlphaInput(request,"action","Action",false);
     ResourceBundle bundle = ResourceBundle.getBundle("Text");
 
-    // Process based on action
     String note="";
     String type="";
-    System.out.println(request.getMethod());
-    if (!RequestUtils.isForwarded(request) && !StringUtils.isEmpty(action) && request.getMethod().equalsIgnoreCase("POST")) {
+    
+    // Process based on action
+    if (!RequestUtils.isForwarded(request) && !StringUtils.isEmpty(action)) {
         if (action.equals(bundle.getString("addLabel"))) {		
             // Get fields
             note=RequestUtils.getAlphaInput(request,"note",bundle.getString("noteLabel"),false);
@@ -38,19 +38,9 @@ function setFieldsFromLocalStorage() {
   document.getElementById("latitude").value=localStorage.getItem("add-latitude");
   document.getElementById("longitude").value=localStorage.getItem("add-longitude");
 }
-
-function clearLocalStorage() {
+function clearAddPositionFromLocalStorage() {
   localStorage.removeItem("add-latitude");
   localStorage.removeItem("add-longitude");
-}
-
-// If can be parsed, return float.  Else, return 0.
-function checkFloat(value) {
-  var returnValue=parseFloat(value);
-  if (isNaN(returnValue)){
-    returnValue=0;
-  }
-  return returnValue;
 }
 </script>
 </head>
@@ -68,7 +58,7 @@ function checkFloat(value) {
 <%-- Back --%>
 <input type="submit" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNoteAdjustLocation.jsp';return false;"/>
 <%-- Cancel --%>
-<input style="margin-left:30px;" type="submit" name="action" value="<%=bundle.getString("cancelLabel")%>" onclick="clearLocalStorage();window.location='geoNotes.jsp';return false;"/>
+<input style="margin-left:30px;" type="submit" name="action" value="<%=bundle.getString("cancelLabel")%>" onclick="clearAddPositionFromLocalStorage();window.location='geoNotes.jsp';return false;"/>
 <%-- Add --%>
 <input id="latitude" type="hidden" name="latitude" value="" />
 <input id="longitude" type="hidden" name="longitude" value="" />
