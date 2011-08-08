@@ -3,11 +3,9 @@
 <%@ page language="java"%>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ResourceBundle" %>
-<%@ page import="geonotes.data.GeoNoteDelete" %>
 <%@ page import="geonotes.data.GeoNoteGetSingle" %>
 <%@ page import="geonotes.data.GeoNoteUpdate" %>
 <%@ page import="geonotes.data.model.GeoNote" %>
-<%@ page import="geonotes.utils.HtmlUtils" %>
 <%@ page import="geonotes.utils.RequestUtils" %>
 <%@ page import="geonotes.utils.StringUtils" %>
 <%
@@ -111,7 +109,6 @@ function updateMarkerAddress(str) {
 
 function initialize() {
   var lat=<%=geoNote.latitude%>;
-  var lon=<%=geoNote.longitude%>;
   var lon=<%=geoNote.longitude%>;
   localStorage.setItem("add-latitude",lat);
   localStorage.setItem("add-longitude",lon);

@@ -11,7 +11,7 @@
 
     String note="";
     String type="";
-    
+
     // Process based on action
     if (!RequestUtils.isForwarded(request) && !StringUtils.isEmpty(action)) {
         if (action.equals(bundle.getString("addLabel"))) {		
