@@ -56,8 +56,10 @@
         }
     }
 %>
+<%@ include file="/WEB-INF/pages/components/noCache.jsp" %>
 <%@ include file="/WEB-INF/pages/components/docType.jsp" %>
 <title><%=bundle.getString("adjustLocationLabel")%></title>
+<link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 </head>
 <body>
@@ -150,20 +152,6 @@ function initialize() {
 google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 <body>
-<style>
-#mapCanvas {
-  width: 300px;
-  height: 300px;
-  float: left;
-}
-#infoPanel {
-  float: left;
-  margin-left: 10px;
-}
-#infoPanel div {
-  margin-bottom: 5px;
-}
-</style>
 <div id="mapCanvas"></div>
 </body>
 </html>

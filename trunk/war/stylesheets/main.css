@@ -1,0 +1,10 @@
+#mapCanvas {width: 300px;height: 300px;float: left;}
+#infoPanel {float: left;margin-left: 10px;}
+#infoPanel div {margin-bottom: 5px;}
+
+a:link, a:visited {color:DarkBlue;}
+a.add:link, a.add:visited  {text-decoration:none; color:#909090; font-size:small;}
+
+#geoNotesDiv th {background-color: WhiteSmoke;}
+#geoNotesDiv table {border-collapse:collapse;margin-top:1em;}
+#geoNotesDiv table,#geoNotesDiv th,#geoNotesDiv td { padding: 3px; border: 1px solid black; word-wrap:break-word; }

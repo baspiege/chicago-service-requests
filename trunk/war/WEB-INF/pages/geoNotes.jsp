@@ -8,14 +8,7 @@
 <%@ include file="/WEB-INF/pages/components/noCache.jsp" %>
 <%@ include file="/WEB-INF/pages/components/docType.jsp" %>
 <title><%=bundle.getString("geoNotesLabel")%></title>
-<style>
-a:link, a:visited {color:DarkBlue;}
-th {background-color: WhiteSmoke;}
-table {border-collapse:collapse;margin-top:1em;}
-table,th,td { padding: 3px; border: 1px solid black; word-wrap:break-word; }
-a.add:link {text-decoration:none; color:#909090; font-size:small;}
-a.add:visited {text-decoration:none; color:#909090; font-size:small;}
-</style>
+<link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
 <script type="text/javascript">
 var waitingForCoordinatesMessage="<%=bundle.getString("waitingForCoordinatesMessage")%>";
