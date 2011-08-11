@@ -12,7 +12,7 @@
 <script type="text/javascript">
 function setFieldsFromLocalStorage() {
   var useGeoLocation=getCookie("useGeoLocation");
-  if (useGeoLocation==null || useGeoLocation=="true") {
+  if (useGeoLocation=="" || useGeoLocation=="true") {
     document.getElementById("useGeoLocation").checked="checked";
   } else {
     document.getElementById("useOverride").checked="checked";
