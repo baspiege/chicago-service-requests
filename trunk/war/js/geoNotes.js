@@ -1,4 +1,29 @@
 ///////////////////
+// Cookies
+///////////////////
+
+function getCookie(name) {
+  if (document.cookie.length>0) {
+    var start=document.cookie.indexOf(name+"=");
+    if (start!=-1) {
+      start+=name.length+1;
+      var end=document.cookie.indexOf(";",start);
+      if (end==-1) {
+        end=document.cookie.length;
+      }
+      return unescape(document.cookie.substring(start,end));
+    }
+  }
+  return "";
+}
+
+function setCookie(name,value,daysToExpire) {
+  var date=new Date();
+  date.setDate(date.getDate()+daysToExpire);
+  document.cookie=name+"="+escape(value)+((daysToExpire==null)?"":";expires="+date.toUTCString());
+}
+
+///////////////////
 // Asynch
 ///////////////////
 
@@ -32,8 +57,8 @@ function sendRequest(url,callback,postData) {
 
 function getGeoNotesData() {
   // Get position and send request
-  var lat=localStorage.getItem("latitude");
-  var lon=localStorage.getItem("longitude");
+  var lat=getCookie("latitude");
+  var lon=getCookie("longitude");
   sendRequest('geoNotesTable.jsp?latitude='+lat+'&longitude='+lon, handleGeoNotesDataRequest);
 }
 
@@ -197,7 +222,7 @@ function geocodePosition(pos) {
 }  
 
 function getCoordinates() {
-  var useGeoLocation=localStorage.getItem("useGeoLocation");
+  var useGeoLocation=getCookie("useGeoLocation");
   if (useGeoLocation==null || useGeoLocation=="true") {
     updateGeoStatus(waitingForCoordinatesMessage);
     var geolocation = navigator.geolocation;
@@ -208,7 +233,7 @@ function getCoordinates() {
       updateGeoStatus(locationNotAvailableMessage);
     }
   } else {      
-    var latLng = new google.maps.LatLng(localStorage.getItem("latitude"), localStorage.getItem("longitude"));
+    var latLng = new google.maps.LatLng(getCookie("latitude"), getCookie("longitude"));
     geocodePosition(latLng);
     getGeoNotesData();
     // Update buttons
@@ -222,8 +247,8 @@ function setPosition(position){
   var display="N/A";
   if (position){
     // Set global variables
-    localStorage.setItem("latitude", position.coords.latitude);
-    localStorage.setItem("longitude", position.coords.longitude);
+    setCookie("latitude", position.coords.latitude);
+    setCookie("longitude", position.coords.longitude);
     display="";
     // Update buttons
     document.getElementById("addButtonDisabled").style.display='none';
@@ -236,8 +261,8 @@ function setPosition(position){
 }
 
 function setCoorindatesFormFields(){
-    document.getElementById("latitude").value=localStorage.getItem("latitude");
-    document.getElementById("longitude").value=localStorage.getItem("longitude");
+    document.getElementById("latitude").value=getCookie("latitude");
+    document.getElementById("longitude").value=getCookie("longitude");
 }
 
 if (typeof(Number.prototype.toRad) === "undefined") {
@@ -330,17 +355,17 @@ function sortByVoteYesDescending(note1,note2) {
 }
 
 function reorderGeoNotesByTimeDescending() {
-  localStorage.setItem("sortBy","time");
+  setCookie("sortBy","time");
   reorderGeoNotes(sortByTimeDescending);
 }
 
 function reorderGeoNotesByDistanceAscending() {
-  localStorage.setItem("sortBy","distance");
+  setCookie("sortBy","distance");
   reorderGeoNotes(sortByDistanceAscending);
 }
 
 function reorderGeoNotesByVoteYesDescending() {
-  localStorage.setItem("sortBy","voteYes");
+  setCookie("sortBy","voteYes");
   reorderGeoNotes(sortByVoteYesDescending);
 }
 
@@ -358,8 +383,8 @@ function removeChildrenFromElement(element) {
 
 function updateNotesDispay() {
   // Current location
-  var latitude=parseFloat(localStorage.getItem("latitude"));
-  var longitude=parseFloat(localStorage.getItem("longitude"));
+  var latitude=parseFloat(getCookie("latitude"));
+  var longitude=parseFloat(getCookie("longitude"));
   var currentSeconds=new Date().getTime()/1000;
   // For each note
   var geoNotes=document.getElementById("geoNotes");
@@ -389,7 +414,7 @@ function updateNotesDispay() {
     note.getElementsByTagName("td")[1].innerHTML=getElapsedTime(parseInt(note.getAttribute("time")),currentSeconds);
   }
   // Sort
-  var sortBy=localStorage.getItem("sortBy");
+  var sortBy=getCookie("sortBy");
   if (sortBy==null || sortBy=="distance") {
     reorderGeoNotesByDistanceAscending();
   } else if (sortBy=="time") {

@@ -14,10 +14,6 @@
 var waitingForCoordinatesMessage="<%=bundle.getString("waitingForCoordinatesMessage")%>";
 var locationNotAvailableMessage="<%=bundle.getString("locationNotAvailableMessage")%>";
 var locationNotFoundMessage="<%=bundle.getString("locationNotFoundMessage")%>";
-function clearAddPositionFromLocalStorage() {
-  localStorage.removeItem("add-latitude");
-  localStorage.removeItem("add-longitude");
-}
 </script>
 </head>
 <body onload="getCoordinates();">
@@ -27,7 +23,7 @@ function clearAddPositionFromLocalStorage() {
 <div style="margin-top:1.5em">
 <%-- Add Button --%>
 <input type="submit" style="display:inline" id="addButtonDisabled" disabled="disabled" value="<%=bundle.getString("addNewRequestLabel")%>"/>
-<input type="submit" style="display:none" id="addButtonEnabled" name="action" onclick="this.style.display='none';document.getElementById('addButtonDisabled').style.display='inline';clearAddPositionFromLocalStorage();window.location='geoNoteAddLocation.jsp';" value="<%=bundle.getString("addNewRequestLabel")%>"/>
+<input type="submit" style="display:none" id="addButtonEnabled" name="action" onclick="this.style.display='none';document.getElementById('addButtonDisabled').style.display='inline';window.location='geoNoteAddLocation.jsp';" value="<%=bundle.getString("addNewRequestLabel")%>"/>
 </div>
 <%-- Data --%>
 <div style="margin-top:1.5em" id="geoNotesDiv">
