@@ -11,7 +11,7 @@
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
 function setFieldsFromLocalStorage() {
-  var useGeoLocation=localStorage.getItem("useGeoLocation");
+  var useGeoLocation=getCookie("useGeoLocation");
   if (useGeoLocation==null || useGeoLocation=="true") {
     document.getElementById("useGeoLocation").checked="checked";
   } else {
@@ -20,11 +20,11 @@ function setFieldsFromLocalStorage() {
 }
 function setFieldsIntoLocalStorage() {
   if (document.getElementById("useGeoLocation").checked) {
-    localStorage.setItem("useGeoLocation","true");
+    setCookie("useGeoLocation","true");
   } else {
-    localStorage.setItem("useGeoLocation","false");
-    localStorage.setItem("latitude",localStorage.getItem("change-latitude"));
-    localStorage.setItem("longitude",localStorage.getItem("change-longitude"));
+    setCookie("useGeoLocation","false");
+    setCookie("latitude",changeLatitude);
+    setCookie("longitude",changeLongitude);
   }
 }
 </script>
@@ -45,7 +45,30 @@ function setFieldsIntoLocalStorage() {
 <input type="submit" name="action" style="margin-left:30px" onclick="setFieldsIntoLocalStorage();window.location='geoNotes.jsp';return false;" value="<%=bundle.getString("updateLabel")%>"/>
 </div>
 <script type="text/javascript">
+function getCookie(name) {
+  if (document.cookie.length>0) {
+    var start=document.cookie.indexOf(name+"=");
+    if (start!=-1) {
+      start+=name.length+1;
+      var end=document.cookie.indexOf(";",start);
+      if (end==-1) {
+        end=document.cookie.length;
+      }
+      return unescape(document.cookie.substring(start,end));
+    }
+  }
+  return "";
+}
+
+function setCookie(name,value,daysToExpire) {
+  var date=new Date();
+  date.setDate(date.getDate()+daysToExpire);
+  document.cookie=name+"="+escape(value)+((daysToExpire==null)?"":";expires="+date.toUTCString());
+}
+
 var geocoder = new google.maps.Geocoder();
+var changeLatitude;
+var changeLongitude;
 
 function geocodePosition(pos) {
   geocoder.geocode({
@@ -71,11 +94,11 @@ function updateMarkerAddress(str) {
 }
 
 function initialize() {
-  var lat=localStorage.getItem("latitude");
-  var lon=localStorage.getItem("longitude");
+  var lat=getCookie("latitude");
+  var lon=getCookie("longitude");
   // Temp variables
-  localStorage.setItem("change-latitude",lat);
-  localStorage.setItem("change-longitude",lon);
+  changeLatitude=lat;
+  changeLongitude=lon;
   var latLng = new google.maps.LatLng(lat, lon);
   var map = new google.maps.Map(document.getElementById('mapCanvas'), {
     zoom: 18,
@@ -104,8 +127,8 @@ function initialize() {
 
   google.maps.event.addListener(marker, 'dragend', function() {
     geocodePosition(marker.getPosition());
-    localStorage.setItem("change-latitude",marker.getPosition().lat());
-    localStorage.setItem("change-longitude",marker.getPosition().lng());
+    changeLatitude=marker.getPosition().lat();
+    changeLongitude=marker.getPosition().lng();
   });
 }
 

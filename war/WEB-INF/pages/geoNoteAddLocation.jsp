@@ -16,13 +16,50 @@
   <tr><td><%=bundle.getString("addressLabel")%>:</td><td><span id="address"></span></td></tr>
 </table>
 <div style="margin-top:1em;margin-bottom:1em;">
+<form id="geoNote" method="post" action="geoNoteAdd.jsp" autocomplete="off">
 <%-- Cancel --%>
 <input type="submit" name="action" value="<%=bundle.getString("cancelLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
 <%-- Update --%>
-<input type="submit" name="action" style="margin-left:30px" onclick="window.location='geoNoteAdd.jsp'" value="<%=bundle.getString("nextLabel")%>"/>
+<input id="latitude" type="hidden" name="latitude" value="" />
+<input id="longitude" type="hidden" name="longitude" value="" />
+<input type="submit" name="action" style="margin-left:30px" onclick="setFieldsFromLocalStorage()" value="<%=bundle.getString("nextLabel")%>"/>
+</form>
 </div>
 <script type="text/javascript">
+
+///////////////////
+// Cookies
+///////////////////
+
+function getCookie(name) {
+  if (document.cookie.length>0) {
+    var start=document.cookie.indexOf(name+"=");
+    if (start!=-1) {
+      start+=name.length+1;
+      var end=document.cookie.indexOf(";",start);
+      if (end==-1) {
+        end=document.cookie.length;
+      }
+      return unescape(document.cookie.substring(start,end));
+    }
+  }
+  return "";
+}
+
+function setCookie(name,value,daysToExpire) {
+  var date=new Date();
+  date.setDate(date.getDate()+daysToExpire);
+  document.cookie=name+"="+escape(value)+((daysToExpire==null)?"":";expires="+date.toUTCString());
+}
+
+function setFieldsFromLocalStorage() {
+  document.getElementById("latitude").value=addLatitude;
+  document.getElementById("longitude").value=addLongitude;
+}
+
 var geocoder = new google.maps.Geocoder();
+var addLatitude;
+var addLongitude;
 
 function geocodePosition(pos) {
   geocoder.geocode({
@@ -48,15 +85,11 @@ function updateMarkerAddress(str) {
 }
 
 function initialize() {
-  var lat=localStorage.getItem("add-latitude");
-  var lon=localStorage.getItem("add-longitude");
-  // If null, reset from lat/lon
-  if (lat==null || lon==null) {
-    lat=localStorage.getItem("latitude");
-    lon=localStorage.getItem("longitude");
-    localStorage.setItem("add-latitude",lat);
-    localStorage.setItem("add-longitude",lon);
-  }
+  var lat=getCookie("latitude");
+  var lon=getCookie("longitude");
+  addLatitude=lat;
+  addLongitude=lon;
+    
   var latLng = new google.maps.LatLng(lat, lon);
   var map = new google.maps.Map(document.getElementById('mapCanvas'), {
     zoom: 18,
@@ -86,8 +119,8 @@ function initialize() {
   google.maps.event.addListener(marker, 'dragend', function() {
     geocodePosition(marker.getPosition());
     // map.setCenter(marker.getPosition())
-    localStorage.setItem("add-latitude",marker.getPosition().lat());
-    localStorage.setItem("add-longitude",marker.getPosition().lng());
+    addLatitude=marker.getPosition().lat();
+    addLongitude=marker.getPosition().lng();
   });
 }
 

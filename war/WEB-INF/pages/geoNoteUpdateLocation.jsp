@@ -80,8 +80,8 @@
 </div>
 <script type="text/javascript">
 function setFieldsFromLocalStorage() {
-  document.getElementById("latitude").value=localStorage.getItem("add-latitude");
-  document.getElementById("longitude").value=localStorage.getItem("add-longitude");
+  document.getElementById("latitude").value=addLatitude;
+  document.getElementById("longitude").value=addLongitude;
 }
 
 var geocoder = new google.maps.Geocoder();
@@ -109,11 +109,14 @@ function updateMarkerAddress(str) {
   document.getElementById('address').innerHTML = str;
 }
 
+var addLatitude;
+var addLongitude;
+
 function initialize() {
   var lat=<%=geoNote.latitude%>;
   var lon=<%=geoNote.longitude%>;
-  localStorage.setItem("add-latitude",lat);
-  localStorage.setItem("add-longitude",lon);
+  addLatitude=lat;
+  addLongitude=lon;
   var latLng = new google.maps.LatLng(lat, lon);
   var map = new google.maps.Map(document.getElementById('mapCanvas'), {
     zoom: 18,
@@ -143,8 +146,8 @@ function initialize() {
   google.maps.event.addListener(marker, 'dragend', function() {
     geocodePosition(marker.getPosition());
     // map.setCenter(marker.getPosition())
-    localStorage.setItem("add-latitude",marker.getPosition().lat());
-    localStorage.setItem("add-longitude",marker.getPosition().lng());
+    addLatitude=marker.getPosition().lat();
+    addLongitude=marker.getPosition().lng();
   });
 }
 
