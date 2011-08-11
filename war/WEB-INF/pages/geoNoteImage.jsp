@@ -122,7 +122,7 @@ form {margin: 0px 0px 0px 0px; display: inline;}
 <%-- Cancel --%>
 <input style="margin-top:30px;" type="submit" name="action" value="<%=bundle.getString("cancelLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
 <%-- Upload --%>
-<input style="margin-left:30px;margin-top:30px" type="submit" name="action" value="Upload">
+<input style="margin-left:30px;" type="submit" name="action" value="Upload">
 </form>
 <form method="post" action="geoNoteImage.jsp?id=<%=new Long(geoNote.getKey().getId()).toString()%>" autocomplete="off">
 <%-- Remove --%>

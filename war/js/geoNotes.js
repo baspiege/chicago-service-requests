@@ -224,13 +224,11 @@ function setPosition(position){
     // Set global variables
     localStorage.setItem("latitude", position.coords.latitude);
     localStorage.setItem("longitude", position.coords.longitude);
-    // Display accuracy
-    display="";//accuracyLabel + ": " + position.coords.accuracy + "m";
+    display="";
     // Update buttons
     document.getElementById("addButtonDisabled").style.display='none';
     document.getElementById('addButtonEnabled').style.display='inline';
     getGeoNotesData();
-    
     var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     geocodePosition(latLng);
   }
