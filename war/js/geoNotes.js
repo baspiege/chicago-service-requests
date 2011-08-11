@@ -223,7 +223,7 @@ function geocodePosition(pos) {
 
 function getCoordinates() {
   var useGeoLocation=getCookie("useGeoLocation");
-  if (useGeoLocation==null || useGeoLocation=="true") {
+  if (useGeoLocation=="" || useGeoLocation=="true") {
     updateGeoStatus(waitingForCoordinatesMessage);
     var geolocation = navigator.geolocation;
     if (geolocation) {
@@ -415,7 +415,7 @@ function updateNotesDispay() {
   }
   // Sort
   var sortBy=getCookie("sortBy");
-  if (sortBy==null || sortBy=="distance") {
+  if (sortBy=="" || sortBy=="distance") {
     reorderGeoNotesByDistanceAscending();
   } else if (sortBy=="time") {
     reorderGeoNotesByTimeDescending();
