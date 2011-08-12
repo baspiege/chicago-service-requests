@@ -246,8 +246,14 @@ function getCoordinates() {
     geocodePosition(latLng);
     getGeoNotesData();
     // Update buttons
-    document.getElementById("addButtonDisabled").style.display='none';
-    document.getElementById('addButtonEnabled').style.display='inline';
+    var addButtonDisabled=document.getElementById("addButtonDisabled");
+    if (addButtonDisabled) {
+      addButtonDisabled.style.display='none';
+    }
+    var addButtonEnabled=document.getElementById("addButtonEnabled");
+    if (addButtonEnabled) {
+      addButtonEnabled.style.display='inline';
+    }
   }
 }
 
@@ -260,18 +266,19 @@ function setPosition(position){
     setCookie("longitude", position.coords.longitude);
     display="";
     // Update buttons
-    document.getElementById("addButtonDisabled").style.display='none';
-    document.getElementById('addButtonEnabled').style.display='inline';
+    var addButtonDisabled=document.getElementById("addButtonDisabled");
+    if (addButtonDisabled) {
+      addButtonDisabled.style.display='none';
+    }
+    var addButtonEnabled=document.getElementById("addButtonEnabled");
+    if (addButtonEnabled) {
+      addButtonEnabled.style.display='inline';
+    }
     getGeoNotesData();
     var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     geocodePosition(latLng);
   }
   updateGeoStatus(display);
-}
-
-function setCoorindatesFormFields(){
-    document.getElementById("latitude").value=getCookie("latitude");
-    document.getElementById("longitude").value=getCookie("longitude");
 }
 
 if (typeof(Number.prototype.toRad) === "undefined") {

@@ -25,13 +25,14 @@
 <%@ include file="/WEB-INF/pages/components/noCache.jsp" %>
 <%@ include file="/WEB-INF/pages/components/docType.jsp" %>
 <title>Bulk Delete</title>
+<link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
 </head>
 <body>
 <form method="post" action="bulkDelete.jsp" autocomplete="off">
 <jsp:include page="/WEB-INF/pages/components/edits.jsp"/>
-<div style="margin-top:30px">
-<input type="submit" name="action" value="<%=bundle.getString("cancelLabel")%>"/>
-<input style="margin-left:30px" type="submit" name="action" value="<%=bundle.getString("deleteLabel")%>"/>
+<div style="margin-top:1.5em">
+<input class="button" type="submit" name="action" value="<%=bundle.getString("cancelLabel")%>"/>
+<input class="button" type="submit" name="action" value="<%=bundle.getString("deleteLabel")%>"/>
 </div>
 </form>
 </body>

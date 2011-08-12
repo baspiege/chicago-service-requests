@@ -78,6 +78,7 @@
 <%@ include file="/WEB-INF/pages/components/noCache.jsp" %>
 <%@ include file="/WEB-INF/pages/components/docType.jsp" %>
 <title><%=bundle.getString("geoNoteLabel")%></title>
+<link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
 </head>
 <body>
 <form id="geoNote" method="post" action="geoNoteUpdate.jsp" autocomplete="off">
@@ -87,14 +88,14 @@
 <tr><td><%=bundle.getString("noteLabel")%>:</td><td><input type="text" name="note" value="<%=HtmlUtils.escapeChars(geoNote.note)%>" id="note" title="<%=bundle.getString("noteLabel")%>" maxlength="500"/></td></tr>
 <tr><td><%=bundle.getString("lastUpdatedLabel")%>:</td><td><%=dateFormat.format(geoNote.lastUpdateTime)%></td></tr>
 </table>
-<div style="margin-top:30px">
+<div style="margin-top:1.5em">
 <input type="hidden" name="id" value="<%=new Long(geoNote.getKey().getId()).toString()%>"/>
 <%-- Cancel, no need to disable when clicked --%>
-<input type="submit" name="action" value="<%=bundle.getString("backLabel")%>"/>
+<input class="button" type="submit" name="action" value="<%=bundle.getString("backLabel")%>"/>
 <%-- Update --%>
-<input style="margin-left:30px" type="submit" name="action" value="<%=bundle.getString("updateLabel")%>"/>
+<input class="button" type="submit" name="action" value="<%=bundle.getString("updateLabel")%>"/>
 <%-- Delete --%>
-<input style="margin-left:30px" type="submit" name="action" value="<%=bundle.getString("deleteLabel")%>"/>
+<input class="button" type="submit" name="action" value="<%=bundle.getString("deleteLabel")%>"/>
 </div>
 </form>
 <jsp:include page="/WEB-INF/pages/components/footer.jsp"/>

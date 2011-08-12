@@ -29,8 +29,8 @@ var locationNotFoundMessage="<%=bundle.getString("locationNotFoundMessage")%>";
 <%
     if (isSignedIn) {
 %>
-<input type="submit" style="display:inline" id="addButtonDisabled" disabled="disabled" value="<%=bundle.getString("addLabel")%>"/>
-<input type="submit" style="display:none" id="addButtonEnabled" name="action" onclick="this.style.display='none';document.getElementById('addButtonDisabled').style.display='inline';window.location='geoNoteAddLocation.jsp';" value="<%=bundle.getString("addLabel")%>"/>
+<input type="submit" class="button" style="display:inline" id="addButtonDisabled" disabled="disabled" value="<%=bundle.getString("addLabel")%>"/>
+<input type="submit" class="button" style="display:none" id="addButtonEnabled" name="action" onclick="this.style.display='none';document.getElementById('addButtonDisabled').style.display='inline';window.location='geoNoteAddLocation.jsp';" value="<%=bundle.getString("addLabel")%>"/>
 <%
     }
 %>
@@ -38,11 +38,11 @@ var locationNotFoundMessage="<%=bundle.getString("locationNotFoundMessage")%>";
 <%
     if (!isSignedIn) {
 %>
-<input style="margin-left:30px" type="submit" value="<%=bundle.getString("logonLabel")%>" onclick="window.location='<%=userService.createLoginURL("../geoNotes.jsp")%>';return false;"/>
+<input class="button" type="submit" value="<%=bundle.getString("logonLabel")%>" onclick="window.location='<%=userService.createLoginURL("../geoNotes.jsp")%>';return false;"/>
 <%  
     } else {
 %>
-<input style="margin-left:30px" type="submit" value="<%=bundle.getString("logoffLabel")%>" onclick="window.location='<%=userService.createLogoutURL("../geoNotes.jsp")%>';return false;"/>
+<input class="button" type="submit" value="<%=bundle.getString("logoffLabel")%>" onclick="window.location='<%=userService.createLogoutURL("../geoNotes.jsp")%>';return false;"/>
 <%
     }
 %>
