@@ -20,6 +20,9 @@
 <%@ page import="com.google.appengine.api.images.ImagesServiceFactory" %>
 <%@ page import="com.google.appengine.api.images.Transform" %>
 <%
+    // Check if signed in
+    boolean isSignedIn=request.getUserPrincipal()!=null;
+
     String action=RequestUtils.getAlphaInput(request,"action","Action",false);
     ResourceBundle bundle = ResourceBundle.getBundle("Text");
     Long geoNoteId=RequestUtils.getNumericInput(request,"id","id",true);
@@ -45,7 +48,7 @@
     }
 
     // Process based on action
-    if (!StringUtils.isEmpty(action)) {
+    if (!StringUtils.isEmpty(action) && isSignedIn) {
         if (action.equals("Upload") && ServletFileUpload.isMultipartContent(request)) {		
             ServletFileUpload upload = new ServletFileUpload();             
             FileItemIterator iter = upload.getItemIterator(request);
@@ -120,7 +123,7 @@ form {margin: 0px 0px 0px 0px; display: inline;}
 <input type="file" name="imageFile">
 <br/>
 <%-- Cancel --%>
-<input style="margin-top:30px;" type="submit" name="action" value="<%=bundle.getString("cancelLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
+<input style="margin-top:30px;" type="submit" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
 <%-- Upload --%>
 <input style="margin-left:30px;" type="submit" name="action" value="Upload">
 </form>
@@ -129,5 +132,6 @@ form {margin: 0px 0px 0px 0px; display: inline;}
 <input style="margin-left:30px" type="submit" name="action" value="Remove">
 </form>
 </div>
+<jsp:include page="/WEB-INF/pages/components/footer.jsp"/>
 </body>
 </html>

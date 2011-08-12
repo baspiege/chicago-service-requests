@@ -58,6 +58,9 @@ public class GeoNote implements Serializable {
     
     @Persistent 
     public long type;
+    
+    @Persistent 
+    public String user;	
  
     /**
      * Constructor.
@@ -114,5 +117,10 @@ public class GeoNote implements Serializable {
     public void setType(long aType)
     { 
         type=aType; 
+    }
+    
+    public void setUser(String aUser)
+    { 
+        user=aUser; 
     }
 }

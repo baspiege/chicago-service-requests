@@ -4,6 +4,14 @@
 <%@ page import="java.util.ResourceBundle" %>
 <%@ include file="/WEB-INF/pages/components/docType.jsp" %>
 <%
+    // Check if signed in
+    boolean isSignedIn=request.getUserPrincipal()!=null;
+    if (!isSignedIn) {
+        %>
+        <jsp:forward page="/geoNotes.jsp"/>
+        <%    
+    }
+    
     ResourceBundle bundle = ResourceBundle.getBundle("Text");
 %>
 <title><%=bundle.getString("adjustLocationLabel")%></title>
@@ -18,7 +26,7 @@
 <div style="margin-top:1em;margin-bottom:1em;">
 <form id="geoNote" method="post" action="geoNoteAdd.jsp" autocomplete="off">
 <%-- Cancel --%>
-<input type="submit" name="action" value="<%=bundle.getString("cancelLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
+<input type="submit" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
 <%-- Update --%>
 <input id="latitude" type="hidden" name="latitude" value="" />
 <input id="longitude" type="hidden" name="longitude" value="" />
@@ -129,5 +137,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 <body>
 <div id="mapCanvas"></div>
+<jsp:include page="/WEB-INF/pages/components/footer.jsp"/>
 </body>
 </html>

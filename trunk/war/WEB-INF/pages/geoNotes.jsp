@@ -2,8 +2,12 @@
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@ page language="java"%>
 <%@ page import="java.util.ResourceBundle" %>
+<%@ page import="com.google.appengine.api.users.UserService" %>
+<%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
 <%
     ResourceBundle bundle = ResourceBundle.getBundle("Text");
+    UserService userService = UserServiceFactory.getUserService();
+    boolean isSignedIn=request.getUserPrincipal()!= null;    
 %>
 <%@ include file="/WEB-INF/pages/components/noCache.jsp" %>
 <%@ include file="/WEB-INF/pages/components/docType.jsp" %>
@@ -22,13 +26,33 @@ var locationNotFoundMessage="<%=bundle.getString("locationNotFoundMessage")%>";
 <div><span id="geoStatus"></span><a style="margin-left:1em" href="location.jsp"><%=bundle.getString("changeLocationLabel")%></a></div>
 <div style="margin-top:1.5em">
 <%-- Add Button --%>
-<input type="submit" style="display:inline" id="addButtonDisabled" disabled="disabled" value="<%=bundle.getString("addNewRequestLabel")%>"/>
-<input type="submit" style="display:none" id="addButtonEnabled" name="action" onclick="this.style.display='none';document.getElementById('addButtonDisabled').style.display='inline';window.location='geoNoteAddLocation.jsp';" value="<%=bundle.getString("addNewRequestLabel")%>"/>
+<%
+    if (isSignedIn) {
+%>
+<input type="submit" style="display:inline" id="addButtonDisabled" disabled="disabled" value="<%=bundle.getString("addLabel")%>"/>
+<input type="submit" style="display:none" id="addButtonEnabled" name="action" onclick="this.style.display='none';document.getElementById('addButtonDisabled').style.display='inline';window.location='geoNoteAddLocation.jsp';" value="<%=bundle.getString("addLabel")%>"/>
+<%
+    }
+%>
+
+<%
+    if (!isSignedIn) {
+%>
+<input style="margin-left:30px" type="submit" value="<%=bundle.getString("logonLabel")%>" onclick="window.location='<%=userService.createLoginURL("../geoNotes.jsp")%>';return false;"/>
+<%  
+    } else {
+%>
+<input style="margin-left:30px" type="submit" value="<%=bundle.getString("logoffLabel")%>" onclick="window.location='<%=userService.createLogoutURL("../geoNotes.jsp")%>';return false;"/>
+<%
+    }
+%>
+
 </div>
 <%-- Data --%>
 <div style="margin-top:1.5em" id="geoNotesDiv">
 <p> <%=bundle.getString("waitingForDataLabel")%> </p>
 </div>
+<jsp:include page="/WEB-INF/pages/components/footer.jsp"/>
 <script type="text/javascript" src="/js/geoNotes.js" />
 </script>
 </body>

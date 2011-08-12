@@ -9,6 +9,9 @@
 <%@ page import="geonotes.utils.RequestUtils" %>
 <%@ page import="geonotes.utils.StringUtils" %>
 <%
+    // Check if signed in
+    boolean isSignedIn=request.getUserPrincipal()!=null;
+
     String action=RequestUtils.getAlphaInput(request,"action","Action",false);
     ResourceBundle bundle = ResourceBundle.getBundle("Text");
     Long geoNoteId=RequestUtils.getNumericInput(request,"id","id",true);
@@ -34,7 +37,7 @@
     }
 
     // Process based on action
-    if (!StringUtils.isEmpty(action)) {
+    if (!StringUtils.isEmpty(action) && isSignedIn) {
         if (action.equals(bundle.getString("updateLabel"))) {		
             // Fields
             RequestUtils.getNumericInputAsDouble(request,"latitude",bundle.getString("latitudeLabel"),true);
@@ -70,7 +73,7 @@
 <div style="margin-top:1em;margin-bottom:1em;">
 <form id="geoNote" method="post" action="geoNoteUpdateLocation.jsp" autocomplete="off">
 <%-- Cancel --%>
-<input type="submit" name="action" value="<%=bundle.getString("cancelLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
+<input type="submit" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
 <%-- Update --%>
 <input type="submit" name="action" style="margin-left:30px" onclick="setFieldsFromLocalStorage();" value="<%=bundle.getString("updateLabel")%>"/>
 <input id="latitude" type="hidden" name="latitude" value="" />
@@ -156,5 +159,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 <body>
 <div id="mapCanvas"></div>
+<jsp:include page="/WEB-INF/pages/components/footer.jsp"/>
 </body>
 </html>
