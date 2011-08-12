@@ -111,6 +111,7 @@
 <%@ include file="/WEB-INF/pages/components/noCache.jsp" %>
 <%@ include file="/WEB-INF/pages/components/docType.jsp" %>
 <title><%=bundle.getString("geoNoteLabel")%></title>
+<link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
 <style>
 form {margin: 0px 0px 0px 0px; display: inline;}
 </style>
@@ -120,16 +121,16 @@ form {margin: 0px 0px 0px 0px; display: inline;}
 <img src="geoNoteImage?id=<%=new Long(geoNote.getKey().getId()).toString()%>" alt="<%=bundle.getString("altPictureLabel")%>"/> <br/>
 <% } %>
 <form method="post" enctype="multipart/form-data" action="geoNoteImage.jsp?action=Upload&id=<%=new Long(geoNote.getKey().getId()).toString()%>"> 
-<input type="file" name="imageFile">
+<input style="margin-bottom:1.5em" type="file" name="imageFile">
 <br/>
 <%-- Cancel --%>
-<input style="margin-top:30px;" type="submit" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
+<input class="button" type="submit" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
 <%-- Upload --%>
-<input style="margin-left:30px;" type="submit" name="action" value="Upload">
+<input class="button" type="submit" name="action" value="Upload">
 </form>
 <form method="post" action="geoNoteImage.jsp?id=<%=new Long(geoNote.getKey().getId()).toString()%>" autocomplete="off">
 <%-- Remove --%>
-<input style="margin-left:30px" type="submit" name="action" value="Remove">
+<input class="button" type="submit" name="action" value="Remove">
 </form>
 </div>
 <jsp:include page="/WEB-INF/pages/components/footer.jsp"/>

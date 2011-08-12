@@ -46,6 +46,7 @@
 <%@ include file="/WEB-INF/pages/components/noCache.jsp" %>
 <%@ include file="/WEB-INF/pages/components/docType.jsp" %>
 <title><%=bundle.getString("geoNotesLabel")%></title>
+<link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
 </head>
 <body>
 <jsp:include page="/WEB-INF/pages/components/edits.jsp"/>
@@ -59,14 +60,14 @@
 </table>
 <p>
 <%-- Back --%>
-<input type="submit" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNoteAddLocation.jsp';return false;"/>
+<input class="button" type="submit" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNoteAddLocation.jsp';return false;"/>
 <%-- Cancel --%>
-<input style="margin-left:30px;" type="submit" name="action" value="<%=bundle.getString("cancelLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
+<input class="button" type="submit" name="action" value="<%=bundle.getString("cancelLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
 <%-- Add --%>
 <input id="latitude" type="hidden" name="latitude" value="<%=latitude%>" />
 <input id="longitude" type="hidden" name="longitude" value="<%=longitude%>" />
-<input type="submit" style="margin-left:30px;display:none" id="addButtonDisabled" disabled="disabled" value="<%=bundle.getString("addLabel")%>"/>
-<input type="submit" style="margin-left:30px;display:inline" id="addButtonEnabled" name="action" onclick="setCoorindatesFormFields();this.style.display='none';document.getElementById('addButtonDisabled').style.display='inline';" value="<%=bundle.getString("addLabel")%>"/>
+<input class="button" type="submit" style="display:none" id="addButtonDisabled" disabled="disabled" value="<%=bundle.getString("addLabel")%>"/>
+<input class="button" type="submit" style="display:inline" id="addButtonEnabled" name="action" onclick="this.style.display='none';document.getElementById('addButtonDisabled').style.display='inline';" value="<%=bundle.getString("addLabel")%>"/>
 </p>
 </form>
 <jsp:include page="/WEB-INF/pages/components/footer.jsp"/>
