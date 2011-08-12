@@ -40,7 +40,7 @@ function setFieldsIntoLocalStorage() {
 </table>
 <div style="margin-top:1em;margin-bottom:1em;">
 <%-- Cancel --%>
-<input type="submit" name="action" value="<%=bundle.getString("cancelLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
+<input type="submit" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
 <%-- Update --%>
 <input type="submit" name="action" style="margin-left:30px" onclick="setFieldsIntoLocalStorage();window.location='geoNotes.jsp';return false;" value="<%=bundle.getString("updateLabel")%>"/>
 </div>
@@ -143,5 +143,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 <body>
 <div id="mapCanvas"></div>
+<jsp:include page="/WEB-INF/pages/components/footer.jsp"/>
 </body>
 </html>

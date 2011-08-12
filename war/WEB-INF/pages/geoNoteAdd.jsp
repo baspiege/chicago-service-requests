@@ -6,6 +6,16 @@
 <%@ page import="geonotes.utils.RequestUtils" %>
 <%@ page import="geonotes.utils.StringUtils" %>
 <%
+    // Check if signed in
+    boolean isSignedIn=request.getUserPrincipal()!= null;
+    if (!isSignedIn) {
+        %>
+        <jsp:forward page="/geoNotes.jsp"/>
+        <%    
+    }
+    
+    request.setAttribute("user",request.getUserPrincipal().getName());
+    
     String action=RequestUtils.getAlphaInput(request,"action","Action",false);
     ResourceBundle bundle = ResourceBundle.getBundle("Text");
 
@@ -59,5 +69,6 @@
 <input type="submit" style="margin-left:30px;display:inline" id="addButtonEnabled" name="action" onclick="setCoorindatesFormFields();this.style.display='none';document.getElementById('addButtonDisabled').style.display='inline';" value="<%=bundle.getString("addLabel")%>"/>
 </p>
 </form>
+<jsp:include page="/WEB-INF/pages/components/footer.jsp"/>
 </body>
 </html>

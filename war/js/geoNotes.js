@@ -122,9 +122,11 @@ function handleGeoNotesDataRequest(req) {
     // Make HTML for each geoNote
     for (var i=0;i<geoNotes.length;i++) {
       var geoNote=geoNotes[i];
+      // User
+      var user=geoNote.getAttribute("user")=="true";
       var tr=document.createElement("tr");
       // Attributes
-      var id=geoNote.getAttribute("id")
+      var id=geoNote.getAttribute("id");
       tr.setAttribute("id",id);
       tr.setAttribute("lat",geoNote.getAttribute("lat"));
       tr.setAttribute("lon",geoNote.getAttribute("lon"));
@@ -142,42 +144,49 @@ function handleGeoNotesDataRequest(req) {
       vote.appendChild(voteButton);
       tr.appendChild(vote);
       // Image
+      var imageCell=document.createElement("td");
       if (geoNote.getAttribute("img")=="true") {
-        var imageCell=document.createElement("td")
         var imageLink=document.createElement("a");
         imageLink.setAttribute("href","geoNoteImage.jsp?id="+id);
         var image=document.createElement("img");
         image.setAttribute("src","geoNoteThumbNailImage?id="+id);
         imageLink.appendChild(image);
         imageCell.appendChild(imageLink);
-        tr.appendChild(imageCell);
-      } else {
-        var imageCell=document.createElement("td")
+      } else if (user) {
         var imageLink=document.createElement("a");
         imageLink.setAttribute("href","geoNoteImage.jsp?id="+id);
         imageLink.setAttribute("class","add");
         imageLink.appendChild(document.createTextNode("Add"));
         imageCell.appendChild(imageLink);
-        tr.appendChild(imageCell);
       }
+      tr.appendChild(imageCell);      
       // Type
       var type=document.createElement("td");
-      var typeLink=document.createElement("a");
-      typeLink.setAttribute("href","geoNoteUpdate.jsp?id="+id);
-      typeLink.appendChild(document.createTextNode(geoNote.getAttribute("type")));
-      type.appendChild(typeLink);
+      if (user) {
+        var typeLink=document.createElement("a");
+        typeLink.setAttribute("href","geoNoteUpdate.jsp?id="+id);
+        typeLink.appendChild(document.createTextNode(geoNote.getAttribute("type")));
+        type.appendChild(typeLink);
+      } else {
+        type.appendChild(document.createTextNode(geoNote.getAttribute("type")));
+      }
       tr.appendChild(type);
       // Desc
       var desc=document.createElement("td");
-      var descLink=document.createElement("a");
-      descLink.setAttribute("href","geoNoteUpdate.jsp?id="+id);
-      var text=geoNote.getAttribute("text");
-      if (text=="") {
-        text="Add";
-        descLink.setAttribute("class","add");
+      if (user) {
+        var descLink=document.createElement("a");
+        descLink.setAttribute("href","geoNoteUpdate.jsp?id="+id);
+        var text=geoNote.getAttribute("text");
+        if (text=="") {
+          text="Add";
+          descLink.setAttribute("class","add");
+        }
+        descLink.appendChild(document.createTextNode(text));
+        desc.appendChild(descLink);
+      } else {
+        var text=geoNote.getAttribute("text");
+        desc.appendChild(document.createTextNode(text));
       }
-      descLink.appendChild(document.createTextNode(text));
-      desc.appendChild(descLink);
       tr.appendChild(desc);
       table.appendChild(tr);
     }

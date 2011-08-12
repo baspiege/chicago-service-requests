@@ -11,7 +11,11 @@
 <%
     ResourceBundle bundle = ResourceBundle.getBundle("Text");
     RequestUtils.getNumericInputAsDouble(request,"latitude",bundle.getString("latitudeLabel"),true);
-    RequestUtils.getNumericInputAsDouble(request,"longitude",bundle.getString("longitudeLabel"),true);		
+    RequestUtils.getNumericInputAsDouble(request,"longitude",bundle.getString("longitudeLabel"),true);
+    String user=null;
+    if (request.getUserPrincipal()!=null) {
+        user=request.getUserPrincipal().getName();
+    }
 %>
 <geoNotes>
 <%@ include file="/WEB-INF/pages/components/noCache.jsp" %>
@@ -29,6 +33,14 @@
             out.write(" yes=\"" + geoNote.yes + "\""); 
             out.write(" text=\"" + HtmlUtils.escapeChars(geoNote.note) + "\"");
             out.write(" type=\"" + bundle.getString("type_"+geoNote.type) + "\"");
+            
+            // User
+            if (user!=null && user.equalsIgnoreCase(geoNote.user)) {
+                out.write(" user=\"true\"");
+            } else {
+                out.write(" user=\"false\"");
+            }
+            
             // Thumbnail
             if (geoNote.imageThumbnail!=null) {
                 out.write(" img=\"true\"");

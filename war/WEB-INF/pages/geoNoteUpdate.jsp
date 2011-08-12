@@ -12,6 +12,9 @@
 <%@ page import="geonotes.utils.RequestUtils" %>
 <%@ page import="geonotes.utils.StringUtils" %>
 <%
+    // Check if signed in
+    boolean isSignedIn=request.getUserPrincipal()!=null;
+
     String action=RequestUtils.getAlphaInput(request,"action","Action",false);
     ResourceBundle bundle = ResourceBundle.getBundle("Text");
     Long geoNoteId=RequestUtils.getNumericInput(request,"id","id",true);
@@ -39,7 +42,7 @@
     }
 
     // Process based on action
-    if (!StringUtils.isEmpty(action)) {
+    if (!StringUtils.isEmpty(action) && isSignedIn) {
         if (action.equals(bundle.getString("updateLabel"))) {		
             // Fields
             RequestUtils.getAlphaInput(request,"note",bundle.getString("noteLabel"),false);
@@ -87,12 +90,13 @@
 <div style="margin-top:30px">
 <input type="hidden" name="id" value="<%=new Long(geoNote.getKey().getId()).toString()%>"/>
 <%-- Cancel, no need to disable when clicked --%>
-<input type="submit" name="action" value="<%=bundle.getString("cancelLabel")%>"/>
+<input type="submit" name="action" value="<%=bundle.getString("backLabel")%>"/>
 <%-- Update --%>
 <input style="margin-left:30px" type="submit" name="action" value="<%=bundle.getString("updateLabel")%>"/>
 <%-- Delete --%>
 <input style="margin-left:30px" type="submit" name="action" value="<%=bundle.getString("deleteLabel")%>"/>
 </div>
 </form>
+<jsp:include page="/WEB-INF/pages/components/footer.jsp"/>
 </body>
 </html>

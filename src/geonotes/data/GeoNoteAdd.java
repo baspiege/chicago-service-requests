@@ -30,6 +30,7 @@ public class GeoNoteAdd {
         Double longitude=(Double)aRequest.getAttribute("longitude");
         Double latitude=(Double)aRequest.getAttribute("latitude");
         Long type=(Long)aRequest.getAttribute("type");
+        String user=(String)aRequest.getAttribute("user");
 
         PersistenceManager pm=null;
         try {
@@ -42,6 +43,7 @@ public class GeoNoteAdd {
             geoNote.setLatitude(latitude.doubleValue());
             geoNote.setType(type.longValue());
             geoNote.setYes(0);
+            geoNote.setUser(user);
             
             // Save
             pm.makePersistent(geoNote);
