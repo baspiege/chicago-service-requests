@@ -75,12 +75,6 @@
                 <jsp:forward page="/geoNotes.jsp"/>
                 <%
             }
-        } else {
-            RequestUtils.resetAction(request);
-            RequestUtils.removeEdits(request);
-            %>
-            <jsp:forward page="/geoNotes.jsp"/>
-            <%
         }
     }
 
@@ -102,8 +96,8 @@
 </table>
 <div style="margin-top:1.5em">
 <input type="hidden" name="id" value="<%=new Long(geoNote.getKey().getId()).toString()%>"/>
-<%-- Cancel, no need to disable when clicked --%>
-<input class="button" type="submit" name="action" value="<%=bundle.getString("backLabel")%>"/>
+<%-- Back --%>
+<input class="button" type="button" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
 <%-- Update --%>
 <input class="button" type="submit" name="action" value="<%=bundle.getString("updateLabel")%>"/>
 <%-- Delete --%>

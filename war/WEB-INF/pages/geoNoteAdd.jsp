@@ -60,9 +60,9 @@
 </table>
 <p>
 <%-- Back --%>
-<input class="button" type="submit" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNoteAddLocation.jsp';return false;"/>
+<input class="button" type="button" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNoteAddLocation.jsp';return false;"/>
 <%-- Cancel --%>
-<input class="button" type="submit" name="action" value="<%=bundle.getString("cancelLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
+<input class="button" type="button" name="action" value="<%=bundle.getString("cancelLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
 <%-- Add --%>
 <input id="latitude" type="hidden" name="latitude" value="<%=latitude%>" />
 <input id="longitude" type="hidden" name="longitude" value="<%=longitude%>" />
