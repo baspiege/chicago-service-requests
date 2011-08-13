@@ -40,9 +40,9 @@ function setFieldsIntoLocalStorage() {
 </table>
 <div style="margin-top:1em;margin-bottom:1em;">
 <%-- Back --%>
-<input class="button" type="submit" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
+<input class="button" type="button" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
 <%-- Update --%>
-<input class="button" type="submit" name="action" onclick="setFieldsIntoLocalStorage();window.location='geoNotes.jsp';return false;" value="<%=bundle.getString("updateLabel")%>"/>
+<input class="button" type="button" name="action" onclick="setFieldsIntoLocalStorage();window.location='geoNotes.jsp';return false;" value="<%=bundle.getString("updateLabel")%>"/>
 </div>
 <script type="text/javascript">
 function getCookie(name) {

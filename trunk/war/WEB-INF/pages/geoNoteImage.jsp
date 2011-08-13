@@ -132,18 +132,18 @@ form {margin: 0px 0px 0px 0px; display: inline;}
 <input style="margin-bottom:1.5em" type="file" name="imageFile">
 <br/>
 <%-- Back --%>
-<input class="button" type="submit" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
+<input class="button" type="button" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
 <%-- Upload --%>
 <input class="button" type="submit" name="action" value="Upload">
 </form>
 <form method="post" action="geoNoteImage.jsp?id=<%=new Long(geoNote.getKey().getId()).toString()%>" autocomplete="off">
 <%-- Remove --%>
-<input class="button" type="submit" name="action" value="Remove">
+<input type="submit" name="action" value="Remove">
 </form>
 <% } else { %>  
 <%-- Not Signed In --%>
 <%-- Back --%>
-<input class="button" type="submit" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
+<input class="button" type="button" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
 <% } %>
 <jsp:include page="/WEB-INF/pages/components/footer.jsp"/>
 </body>
