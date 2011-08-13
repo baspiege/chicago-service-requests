@@ -25,7 +25,7 @@
             RequestUtils.resetAction(request);
             RequestUtils.removeEdits(request);
             %>
-            <jsp:forward page="/geoNotes.jsp"/>
+            <jsp:forward page="/geoNotesRedirect.jsp"/>
             <%
         }
         // Can only edit own note
@@ -36,7 +36,7 @@
         RequestUtils.resetAction(request);
         RequestUtils.removeEdits(request);
         %>
-        <jsp:forward page="/geoNotes.jsp"/>
+        <jsp:forward page="/geoNotesRedirect.jsp"/>
         <%
     }
 
@@ -51,14 +51,14 @@
             }
             if (!RequestUtils.hasEdits(request)) {
                 %>
-                <jsp:forward page="/geoNotes.jsp"/>
+                <jsp:forward page="/geoNotesRedirect.jsp"/>
                 <%
             }
         } else {
             RequestUtils.resetAction(request);
             RequestUtils.removeEdits(request);
             %>
-            <jsp:forward page="/geoNotes.jsp"/>
+            <jsp:forward page="/geoNotesRedirect.jsp"/>
             <%
         }
     }
@@ -78,18 +78,12 @@
 <%-- Signed In --%>
 <% if (isSignedIn) { %>
 <form id="geoNote" method="post" action="geoNoteUpdateLocation.jsp" autocomplete="off">
-<%-- Back --%>
-<input class="button" type="button" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
 <%-- Update --%>
 <input class="button" type="submit" name="action" onclick="setFieldsFromLocalStorage();" value="<%=bundle.getString("updateLabel")%>"/>
 <input id="latitude" type="hidden" name="latitude" value="" />
 <input id="longitude" type="hidden" name="longitude" value="" />
 <input type="hidden" name="id" value="<%=new Long(geoNote.getKey().getId()).toString()%>"/>
 </form>
-<% } else { %>  
-<%-- Not Signed In --%>
-<%-- Back --%>
-<input class="button" type="button" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
 <% } %>
 </div>
 <script type="text/javascript">

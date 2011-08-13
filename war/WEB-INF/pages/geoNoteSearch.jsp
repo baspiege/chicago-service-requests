@@ -59,8 +59,8 @@
 <% } %>
 
 <div style="margin-top:1.5em">
-<%-- Back --%>
-<input class="button" type="button" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
+<%-- Main --%>
+<input class="button" type="button" name="action" value="<%=bundle.getString("mainLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
 <%-- Search --%>
 <input class="button" type="submit" name="action" value="<%=bundle.getString("searchLabel")%>"/>
 </div>

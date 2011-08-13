@@ -29,7 +29,7 @@
             RequestUtils.resetAction(request);
             RequestUtils.removeEdits(request);
             %>
-            <jsp:forward page="/geoNotes.jsp"/>
+            <jsp:forward page="/geoNotesRedirect.jsp"/>
             <%
         } else {
             // Can only edit own note
@@ -38,7 +38,7 @@
             }
             if (!isSignedIn) {
                 %>
-                <jsp:forward page="/geoNotes.jsp"/>
+                <jsp:forward page="/geoNotesRedirect.jsp"/>
                 <%
             }
         
@@ -48,7 +48,7 @@
         RequestUtils.resetAction(request);
         RequestUtils.removeEdits(request);
         %>
-        <jsp:forward page="/geoNotes.jsp"/>
+        <jsp:forward page="/geoNotesRedirect.jsp"/>
         <%
     }
 
@@ -63,7 +63,7 @@
             }
             if (!RequestUtils.hasEdits(request)) {
                 %>
-                <jsp:forward page="/geoNotes.jsp"/>
+                <jsp:forward page="/geoNotesRedirect.jsp"/>
                 <%
             }
         } else if (action.equals(bundle.getString("deleteLabel"))) {		
@@ -72,7 +72,7 @@
             }
             if (!RequestUtils.hasEdits(request)) {
                 %>
-                <jsp:forward page="/geoNotes.jsp"/>
+                <jsp:forward page="/geoNotesRedirect.jsp"/>
                 <%
             }
         }
@@ -96,8 +96,6 @@
 </table>
 <div style="margin-top:1.5em">
 <input type="hidden" name="id" value="<%=new Long(geoNote.getKey().getId()).toString()%>"/>
-<%-- Back --%>
-<input class="button" type="button" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
 <%-- Update --%>
 <input class="button" type="submit" name="action" value="<%=bundle.getString("updateLabel")%>"/>
 <%-- Delete --%>
