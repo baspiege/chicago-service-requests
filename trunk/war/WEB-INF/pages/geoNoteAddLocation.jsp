@@ -25,7 +25,7 @@
 </table>
 <div style="margin-top:1em;margin-bottom:1em;">
 <form id="geoNote" method="post" action="geoNoteAdd.jsp" autocomplete="off">
-<%-- Cancel --%>
+<%-- Back --%>
 <input class="button" type="submit" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
 <%-- Update --%>
 <input id="latitude" type="hidden" name="latitude" value="" />
@@ -34,10 +34,6 @@
 </form>
 </div>
 <script type="text/javascript">
-
-///////////////////
-// Cookies
-///////////////////
 
 function getCookie(name) {
   if (document.cookie.length>0) {

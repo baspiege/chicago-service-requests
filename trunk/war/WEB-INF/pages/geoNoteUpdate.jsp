@@ -4,6 +4,7 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ResourceBundle" %>
+<%@ page import="java.util.TimeZone" %>
 <%@ page import="geonotes.data.GeoNoteDelete" %>
 <%@ page import="geonotes.data.GeoNoteGetSingle" %>
 <%@ page import="geonotes.data.GeoNoteUpdate" %>
@@ -31,6 +32,16 @@
             <jsp:forward page="/geoNotes.jsp"/>
             <%
         } else {
+            // Can only edit own note
+            if (isSignedIn) {
+                isSignedIn=request.getUserPrincipal().getName().equalsIgnoreCase(geoNote.user);
+            }
+            if (!isSignedIn) {
+                %>
+                <jsp:forward page="/geoNotes.jsp"/>
+                <%
+            }
+        
             request.setAttribute("type", geoNote.type);
         }
     } else {
@@ -73,7 +84,8 @@
         }
     }
 
-    SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy MMM dd HH:mm zzz");
+    SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy MMM dd h:mm aa zzz");
+    dateFormat.setTimeZone(TimeZone.getTimeZone("America/Chicago"));
 %>
 <%@ include file="/WEB-INF/pages/components/noCache.jsp" %>
 <%@ include file="/WEB-INF/pages/components/docType.jsp" %>

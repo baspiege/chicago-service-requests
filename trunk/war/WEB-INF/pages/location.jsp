@@ -39,7 +39,7 @@ function setFieldsIntoLocalStorage() {
   <tr><td><%=bundle.getString("addressLabel")%>:</td><td><span id="address"></span></td></tr>
 </table>
 <div style="margin-top:1em;margin-bottom:1em;">
-<%-- Cancel --%>
+<%-- Back --%>
 <input class="button" type="submit" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
 <%-- Update --%>
 <input class="button" type="submit" name="action" onclick="setFieldsIntoLocalStorage();window.location='geoNotes.jsp';return false;" value="<%=bundle.getString("updateLabel")%>"/>

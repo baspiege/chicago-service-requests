@@ -34,7 +34,7 @@ var locationNotFoundMessage="<%=bundle.getString("locationNotFoundMessage")%>";
 <%
     }
 %>
-
+<input type="submit" class="button" value="<%=bundle.getString("searchLabel")%>" onclick="window.location='geoNoteSearch.jsp';return false;"/>
 <%
     if (!isSignedIn) {
 %>
