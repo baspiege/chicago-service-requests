@@ -67,41 +67,45 @@ function handleGeoNotesDataRequest(req) {
   table.setAttribute("id","geoNotes");
   var tr=document.createElement("tr");
   // Distance
-  var th1=document.createElement("th");
-  tr.appendChild(th1);
+  var thDistance=document.createElement("th");
+  tr.appendChild(thDistance);
   var distanceLink=document.createElement("a");
   distanceLink.setAttribute("href","#");
   distanceLink.setAttribute("onclick","reorderGeoNotesByDistanceAscending();return false;");
   distanceLink.appendChild(document.createTextNode("Distance"));  
-  th1.appendChild(distanceLink);
+  thDistance.appendChild(distanceLink);
   // Time
-  var th2=document.createElement("th");
-  tr.appendChild(th2);
+  var thTime=document.createElement("th");
+  tr.appendChild(thTime);
   var timeLink=document.createElement("a");
   timeLink.setAttribute("href","#");
   timeLink.setAttribute("onclick","reorderGeoNotesByTimeDescending();return false;");
   timeLink.appendChild(document.createTextNode("Time"));  
-  th2.appendChild(timeLink);
-  // Agree
-  var th3=document.createElement("th");
-  tr.appendChild(th3);
+  thTime.appendChild(timeLink);
+  // Id
+  var thId=document.createElement("th");
+  tr.appendChild(thId);
+  thId.appendChild(document.createTextNode("Id"));
+  // Vote
+  var thAgree=document.createElement("th");
+  tr.appendChild(thAgree);
   var distanceLink=document.createElement("a");
   distanceLink.setAttribute("href","#");
   distanceLink.setAttribute("onclick","reorderGeoNotesByVoteYesDescending();return false;");
-  distanceLink.appendChild(document.createTextNode("Agree"));  
-  th3.appendChild(distanceLink);
+  distanceLink.appendChild(document.createTextNode("Vote"));  
+  thAgree.appendChild(distanceLink);
   // Image
-  var th4=document.createElement("th");
-  tr.appendChild(th4);
-  th4.appendChild(document.createTextNode("Image"));
+  var thImage=document.createElement("th");
+  tr.appendChild(thImage);
+  thImage.appendChild(document.createTextNode("Image"));
   // Type
-  var th5=document.createElement("th");
-  tr.appendChild(th5);
-  th5.appendChild(document.createTextNode("Type"));  
+  var thType=document.createElement("th");
+  tr.appendChild(thType);
+  thType.appendChild(document.createTextNode("Type"));  
   // Note
-  var th6=document.createElement("th");
-  tr.appendChild(th6);
-  th6.appendChild(document.createTextNode("Note"));  
+  var thNote=document.createElement("th");
+  tr.appendChild(thNote);
+  thNote.appendChild(document.createTextNode("Note"));  
   table.appendChild(tr);  
   // Process request
   var xmlDoc=req.responseXML;
@@ -109,7 +113,7 @@ function handleGeoNotesDataRequest(req) {
   if (geoNotes.length==0){
     var tr=document.createElement("tr");
     var td=document.createElement("td");
-    td.setAttribute("colspan","6");
+    td.setAttribute("colspan","7");
     td.appendChild(document.createTextNode("No nearby requests."));
     tr.appendChild(td);
     table.appendChild(tr);
@@ -136,6 +140,10 @@ function handleGeoNotesDataRequest(req) {
       tr.appendChild(document.createElement("td"));
       // Elapse time
       tr.appendChild(document.createElement("td"));
+      // Id
+      var idCell=document.createElement("td");
+      idCell.appendChild(document.createTextNode(id));
+      tr.appendChild(idCell);
       // Vote
       var vote=document.createElement("td")
       var voteButton=document.createElement("button");

@@ -30,6 +30,7 @@
     GeoNote geoNote=null;
     if (geoNoteId!=null) {
         new GeoNoteGetSingle().execute(request);
+         
         // If note is null, forward to main page
         geoNote=(GeoNote)request.getAttribute("geoNote");
         if (geoNote==null) {
@@ -38,6 +39,11 @@
             %>
             <jsp:forward page="/geoNotes.jsp"/>
             <%
+        }
+        
+        // Can only edit own note
+        if (isSignedIn) {
+            isSignedIn=request.getUserPrincipal().getName().equalsIgnoreCase(geoNote.user);
         }
     } else {    
         RequestUtils.resetAction(request);
@@ -120,10 +126,12 @@ form {margin: 0px 0px 0px 0px; display: inline;}
 <% if (geoNote!=null && geoNote.image!=null) { %>
 <img src="geoNoteImage?id=<%=new Long(geoNote.getKey().getId()).toString()%>" alt="<%=bundle.getString("altPictureLabel")%>"/> <br/>
 <% } %>
+<%-- Signed In --%>
+<% if (isSignedIn) { %>
 <form method="post" enctype="multipart/form-data" action="geoNoteImage.jsp?action=Upload&id=<%=new Long(geoNote.getKey().getId()).toString()%>"> 
 <input style="margin-bottom:1.5em" type="file" name="imageFile">
 <br/>
-<%-- Cancel --%>
+<%-- Back --%>
 <input class="button" type="submit" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
 <%-- Upload --%>
 <input class="button" type="submit" name="action" value="Upload">
@@ -132,7 +140,11 @@ form {margin: 0px 0px 0px 0px; display: inline;}
 <%-- Remove --%>
 <input class="button" type="submit" name="action" value="Remove">
 </form>
-</div>
+<% } else { %>  
+<%-- Not Signed In --%>
+<%-- Back --%>
+<input class="button" type="submit" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
+<% } %>
 <jsp:include page="/WEB-INF/pages/components/footer.jsp"/>
 </body>
 </html>
