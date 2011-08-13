@@ -62,6 +62,10 @@ function getGeoNotesData() {
   sendRequest('geoNotesTable.jsp?latitude='+lat+'&longitude='+lon, handleGeoNotesDataRequest);
 }
 
+function getGeoNotesDataById(id) {
+  sendRequest('geoNotesTable.jsp?id='+id, handleGeoNotesDataRequest);
+}
+
 function handleGeoNotesDataRequest(req) {
   var table=document.createElement("table");
   table.setAttribute("id","geoNotes");

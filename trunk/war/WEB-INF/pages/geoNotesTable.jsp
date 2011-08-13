@@ -2,16 +2,31 @@
 <%-- This JSP has the HTML for Geo Notes table. --%>
 <%@page pageEncoding="UTF-8" contentType="text/xml; charset=UTF-8" %>
 <%@ page language="java"%>
+<%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ResourceBundle" %>
 <%@ page import="geonotes.data.GeoNoteGetAll" %>
+<%@ page import="geonotes.data.GeoNoteGetSingle" %>
 <%@ page import="geonotes.data.model.GeoNote" %>
 <%@ page import="geonotes.utils.HtmlUtils" %>
 <%@ page import="geonotes.utils.RequestUtils" %>
 <%
     ResourceBundle bundle = ResourceBundle.getBundle("Text");
-    RequestUtils.getNumericInputAsDouble(request,"latitude",bundle.getString("latitudeLabel"),true);
-    RequestUtils.getNumericInputAsDouble(request,"longitude",bundle.getString("longitudeLabel"),true);
+    List<GeoNote> geoNotes = null;
+    
+    Long geoNoteId=RequestUtils.getNumericInput(request,"id","id",false);
+    if (geoNoteId!=null) {
+       new GeoNoteGetSingle().execute(request);
+       // Add to list.
+       geoNotes=new ArrayList<GeoNote>();
+       geoNotes.add((GeoNote)request.getAttribute("geoNote"));
+    } else { 
+        RequestUtils.getNumericInputAsDouble(request,"latitude",bundle.getString("latitudeLabel"),true);
+        RequestUtils.getNumericInputAsDouble(request,"longitude",bundle.getString("longitudeLabel"),true);
+        new GeoNoteGetAll().execute(request);
+        geoNotes=(List<GeoNote>)request.getAttribute("geoNotes");
+    }
+    
     String user=null;
     if (request.getUserPrincipal()!=null) {
         user=request.getUserPrincipal().getName();
@@ -20,8 +35,6 @@
 <geoNotes>
 <%@ include file="/WEB-INF/pages/components/noCache.jsp" %>
 <%
-    new GeoNoteGetAll().execute(request);
-    List<GeoNote> geoNotes=(List<GeoNote>)request.getAttribute("geoNotes");
     if (geoNotes!=null && geoNotes.size()>0) {
         for (GeoNote geoNote:geoNotes) {
             long geoId=geoNote.getKey().getId();

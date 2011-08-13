@@ -40,9 +40,15 @@
 <%@ include file="/WEB-INF/pages/components/docType.jsp" %>
 <title><%=bundle.getString("searchLabel")%></title>
 <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
 </head>
+<% if (found) { %>
+<body onload='getGeoNotesDataById(<%=new Long(geoNote.getKey().getId()).toString()%>);'>
+<% } else { %>
 <body>
-<form id="geoNote" method="post" action="geoNoteSearch.jsp">
+<% } %>
+
+<form id="geoNote" method="get" action="geoNoteSearch.jsp">
 <jsp:include page="/WEB-INF/pages/components/edits.jsp"/>
 <table>
 <tr><td><%=bundle.getString("idLabel")%>:</td><td><input type="text" name="id" value="<%=geoNoteId.toString()%>" title="<%=bundle.getString("idLabel")%>"/></td></tr>
@@ -62,29 +68,10 @@
 
 <% if (found) { %>
 <div id="geoNotesDiv" style="margin-top:1.5em">
-<table id="geoNotes">
-<tr>
-<th> <%=bundle.getString("locationLabel")%> </th>
-<th> <%=bundle.getString("lastUpdatedLabel")%> </th>
-<th> <%=bundle.getString("idLabel")%> </th>
-<th> <%=bundle.getString("voteLabel")%> </th>
-<th> <%=bundle.getString("imageLabel")%> </th>
-<th> <%=bundle.getString("typeLabel")%> </th>
-<th> <%=bundle.getString("noteLabel")%> </th>
-</tr>
-<tr>
-<td> </td>
-<td> </td>
-<td> </td>
-<td> </td>
-<td> </td>
-<td><%= bundle.getString("type_"+geoNote.type) %></td>
-<td><%=HtmlUtils.escapeChars(geoNote.note)%></td>
-</tr>
-</table>
 </div>
 <% } %>
 
 <jsp:include page="/WEB-INF/pages/components/footer.jsp"/>
+<script type="text/javascript" src="/js/geoNotes.js" ></script>
 </body>
 </html>
