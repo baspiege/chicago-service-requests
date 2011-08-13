@@ -42,7 +42,6 @@ var locationNotFoundMessage="<%=bundle.getString("locationNotFoundMessage")%>";
 <p> <%=bundle.getString("waitingForDataLabel")%> </p>
 </div>
 <jsp:include page="/WEB-INF/pages/components/footer.jsp"/>
-<script type="text/javascript" src="/js/geoNotes.js" />
-</script>
+<script type="text/javascript" src="/js/geoNotes.js" ></script>
 </body>
 </html>
