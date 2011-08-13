@@ -129,7 +129,6 @@ function initialize() {
 // Onload handler to fire off the app.
 google.maps.event.addDomListener(window, 'load', initialize);
 </script>
-<body>
 <div id="mapCanvas"></div>
 <jsp:include page="/WEB-INF/pages/components/footer.jsp"/>
 </body>
