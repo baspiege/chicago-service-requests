@@ -17,7 +17,7 @@
             RequestUtils.resetAction(request);
             RequestUtils.removeEdits(request);
             %>
-            <jsp:forward page="/geoNotes.jsp"/>
+            <jsp:forward page="/geoNotesRedirect.jsp"/>
             <%
         }
     }

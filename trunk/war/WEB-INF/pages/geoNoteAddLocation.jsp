@@ -8,7 +8,7 @@
     boolean isSignedIn=request.getUserPrincipal()!=null;
     if (!isSignedIn) {
         %>
-        <jsp:forward page="/geoNotes.jsp"/>
+        <jsp:forward page="/geoNotesRedirect.jsp"/>
         <%    
     }
     
@@ -25,8 +25,6 @@
 </table>
 <div style="margin-top:1em;margin-bottom:1em;">
 <form id="geoNote" method="post" action="geoNoteAdd.jsp" autocomplete="off">
-<%-- Back --%>
-<input class="button" type="submit" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
 <%-- Update --%>
 <input id="latitude" type="hidden" name="latitude" value="" />
 <input id="longitude" type="hidden" name="longitude" value="" />

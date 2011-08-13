@@ -10,7 +10,7 @@
     boolean isSignedIn=request.getUserPrincipal()!= null;
     if (!isSignedIn) {
         %>
-        <jsp:forward page="/geoNotes.jsp"/>
+        <jsp:forward page="/geoNotesRedirect.jsp"/>
         <%    
     }
     
@@ -37,7 +37,7 @@
                 new GeoNoteAdd().execute(request);
                 RequestUtils.resetAction(request);
                 %>
-                <jsp:forward page="/geoNotes.jsp"/>
+                <jsp:forward page="/geoNotesRedirect.jsp"/>
                 <%
             }
         }
@@ -59,8 +59,6 @@
 <tr><td><%=bundle.getString("noteLabel")%>:</td><td><input type="text" name="note" value="<%=note%>" id="note" title="<%=bundle.getString("noteLabel")%>" maxlength="500"/></td></tr>
 </table>
 <p>
-<%-- Back --%>
-<input class="button" type="button" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNoteAddLocation.jsp';return false;"/>
 <%-- Cancel --%>
 <input class="button" type="button" name="action" value="<%=bundle.getString("cancelLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
 <%-- Add --%>

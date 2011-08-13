@@ -37,7 +37,7 @@
             RequestUtils.resetAction(request);
             RequestUtils.removeEdits(request);
             %>
-            <jsp:forward page="/geoNotes.jsp"/>
+            <jsp:forward page="/geoNotesRedirect.jsp"/>
             <%
         }
         
@@ -49,7 +49,7 @@
         RequestUtils.resetAction(request);
         RequestUtils.removeEdits(request);
         %>
-        <jsp:forward page="/geoNotes.jsp"/>
+        <jsp:forward page="/geoNotesRedirect.jsp"/>
         <%
     }
 
@@ -92,7 +92,7 @@
                     new GeoNoteImageUpdate().execute(request);
                     RequestUtils.resetAction(request);
                     %>
-                    <jsp:forward page="/geoNotes.jsp"/>
+                    <jsp:forward page="/geoNotesRedirect.jsp"/>
                     <%
                 }
             }
@@ -102,14 +102,14 @@
                 new GeoNoteImageRemove().execute(request);
                 RequestUtils.resetAction(request);
                 %>
-                <jsp:forward page="/geoNotes.jsp"/>
+                <jsp:forward page="/geoNotesRedirect.jsp"/>
                 <%
             }
         } else {
             RequestUtils.resetAction(request);
             RequestUtils.removeEdits(request);
             %>
-            <jsp:forward page="/geoNotes.jsp"/>
+            <jsp:forward page="/geoNotesRedirect.jsp"/>
             <%
         }
     }
@@ -131,8 +131,6 @@ form {margin: 0px 0px 0px 0px; display: inline;}
 <form method="post" enctype="multipart/form-data" action="geoNoteImage.jsp?action=Upload&id=<%=new Long(geoNote.getKey().getId()).toString()%>"> 
 <input style="margin-bottom:1.5em" type="file" name="imageFile">
 <br/>
-<%-- Back --%>
-<input class="button" type="button" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
 <%-- Upload --%>
 <input class="button" type="submit" name="action" value="Upload">
 </form>
@@ -140,11 +138,7 @@ form {margin: 0px 0px 0px 0px; display: inline;}
 <%-- Remove --%>
 <input type="submit" name="action" value="Remove">
 </form>
-<% } else { %>  
-<%-- Not Signed In --%>
-<%-- Back --%>
-<input class="button" type="button" name="action" value="<%=bundle.getString("backLabel")%>" onclick="window.location='geoNotes.jsp';return false;"/>
-<% } %>
+<% } %>  
 <jsp:include page="/WEB-INF/pages/components/footer.jsp"/>
 </body>
 </html>
