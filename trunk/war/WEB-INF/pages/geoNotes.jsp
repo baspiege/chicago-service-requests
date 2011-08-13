@@ -26,27 +26,16 @@ var locationNotFoundMessage="<%=bundle.getString("locationNotFoundMessage")%>";
 <div><span id="geoStatus"></span><a style="margin-left:1em" href="location.jsp"><%=bundle.getString("changeLocationLabel")%></a></div>
 <div style="margin-top:1.5em">
 <%-- Add Button --%>
-<%
-    if (isSignedIn) {
-%>
-<input type="submit" class="button" style="display:inline" id="addButtonDisabled" disabled="disabled" value="<%=bundle.getString("addLabel")%>"/>
-<input type="submit" class="button" style="display:none" id="addButtonEnabled" name="action" onclick="this.style.display='none';document.getElementById('addButtonDisabled').style.display='inline';window.location='geoNoteAddLocation.jsp';" value="<%=bundle.getString("addLabel")%>"/>
-<%
-    }
-%>
-<input type="submit" class="button" value="<%=bundle.getString("searchLabel")%>" onclick="window.location='geoNoteSearch.jsp';return false;"/>
-<%
-    if (!isSignedIn) {
-%>
-<input class="button" type="submit" value="<%=bundle.getString("logonLabel")%>" onclick="window.location='<%=userService.createLoginURL("../geoNotes.jsp")%>';return false;"/>
-<%  
-    } else {
-%>
-<input class="button" type="submit" value="<%=bundle.getString("logoffLabel")%>" onclick="window.location='<%=userService.createLogoutURL("../geoNotes.jsp")%>';return false;"/>
-<%
-    }
-%>
-
+<% if (isSignedIn) { %>
+<input type="button" class="button" style="display:inline" id="addButtonDisabled" disabled="disabled" value="<%=bundle.getString("addLabel")%>"/>
+<input type="button" class="button" style="display:none" id="addButtonEnabled" name="action" onclick="this.style.display='none';document.getElementById('addButtonDisabled').style.display='inline';window.location='geoNoteAddLocation.jsp';" value="<%=bundle.getString("addLabel")%>"/>
+<% } %>
+<input type="button" class="button" value="<%=bundle.getString("searchLabel")%>" onclick="window.location='geoNoteSearch.jsp';return false;"/>
+<% if (!isSignedIn) { %>
+<input class="button" type="button" value="<%=bundle.getString("logonLabel")%>" onclick="window.location='<%=userService.createLoginURL("../geoNotes.jsp")%>';return false;"/>
+<% } else { %>
+<input class="button" type="button" value="<%=bundle.getString("logoffLabel")%>" onclick="window.location='<%=userService.createLogoutURL("../geoNotes.jsp")%>';return false;"/>
+<% } %>
 </div>
 <%-- Data --%>
 <div style="margin-top:1.5em" id="geoNotesDiv">
