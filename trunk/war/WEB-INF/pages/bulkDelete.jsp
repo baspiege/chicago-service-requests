@@ -31,7 +31,6 @@
 <form method="post" action="bulkDelete.jsp" autocomplete="off">
 <jsp:include page="/WEB-INF/pages/components/edits.jsp"/>
 <div style="margin-top:1.5em">
-<input class="button" type="button" name="action" value="<%=bundle.getString("cancelLabel")%>"/>
 <input class="button" type="submit" name="action" value="<%=bundle.getString("deleteLabel")%>"/>
 </div>
 </form>

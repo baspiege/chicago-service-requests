@@ -54,6 +54,7 @@ public class GeoNoteGetAll {
                     resultsTemp = (List<GeoNote>) query.execute(NumberUtils.getNumber2DecimalPrecision(latitudeCenter-.01), longitudeCenter);
                     transferResults(results,resultsTemp);
                     left=true;
+                    //System.out.println("left");
                 }
 
                 // Right
@@ -62,37 +63,44 @@ public class GeoNoteGetAll {
                     resultsTemp = (List<GeoNote>) query.execute(NumberUtils.getNumber2DecimalPrecision(latitudeCenter+.01), longitudeCenter);
                     transferResults(results,resultsTemp);
                     right=true;
+                    //System.out.println("right");
                }
 
-                // Up
-                boolean down=false;
-                if (longitude-longitudeCenter<.0025) {
-                    resultsTemp = (List<GeoNote>) query.execute(latitudeCenter, NumberUtils.getNumber2DecimalPrecision(longitudeCenter-.01));
-                    transferResults(results,resultsTemp);
-                    down=true;
-                }
-
                 // Down
-                boolean up=false;
-                if (longitude-longitudeCenter>.0075) {
+                boolean down=false;
+                if (longitudeCenter-longitude<.0025) {
                     resultsTemp = (List<GeoNote>) query.execute(latitudeCenter, NumberUtils.getNumber2DecimalPrecision(longitudeCenter+.01));
                     transferResults(results,resultsTemp);
+                    down=true;
+                    //System.out.println("down");
+                }
+
+                // Up
+                boolean up=false;
+                if (longitudeCenter-longitude>.0075) {
+                    resultsTemp = (List<GeoNote>) query.execute(latitudeCenter, NumberUtils.getNumber2DecimalPrecision(longitudeCenter-.01));
+                    transferResults(results,resultsTemp);
                     up=true;
+                    //System.out.println("up");
                 }
 
                 // Corners
                 if (left && up) {
-                    resultsTemp = (List<GeoNote>) query.execute(NumberUtils.getNumber2DecimalPrecision(latitudeCenter-.01), NumberUtils.getNumber2DecimalPrecision(longitudeCenter+.01));
-                    transferResults(results,resultsTemp);
-                } else if (left && down) {
                     resultsTemp = (List<GeoNote>) query.execute(NumberUtils.getNumber2DecimalPrecision(latitudeCenter-.01), NumberUtils.getNumber2DecimalPrecision(longitudeCenter-.01));
                     transferResults(results,resultsTemp);
-                } else if (right && up) {
-                    resultsTemp = (List<GeoNote>) query.execute(NumberUtils.getNumber2DecimalPrecision(latitudeCenter+.01), NumberUtils.getNumber2DecimalPrecision(longitudeCenter+.01));
+                    //System.out.println("left up");
+                } else if (left && down) {
+                    resultsTemp = (List<GeoNote>) query.execute(NumberUtils.getNumber2DecimalPrecision(latitudeCenter-.01), NumberUtils.getNumber2DecimalPrecision(longitudeCenter+.01));
                     transferResults(results,resultsTemp);
-                } else if (right && down) {
+                    //System.out.println("left down");
+                } else if (right && up) {
                     resultsTemp = (List<GeoNote>) query.execute(NumberUtils.getNumber2DecimalPrecision(latitudeCenter+.01), NumberUtils.getNumber2DecimalPrecision(longitudeCenter-.01));
                     transferResults(results,resultsTemp);
+                    //System.out.println("right up");
+                } else if (right && down) {
+                    resultsTemp = (List<GeoNote>) query.execute(NumberUtils.getNumber2DecimalPrecision(latitudeCenter+.01), NumberUtils.getNumber2DecimalPrecision(longitudeCenter+.01));
+                    transferResults(results,resultsTemp);
+                    //System.out.println("right down");
                 }
 
                 // Set into request
