@@ -28,7 +28,7 @@ var locationNotFoundMessage="<%=bundle.getString("locationNotFoundMessage")%>";
 <%-- Add Button --%>
 <% if (isSignedIn) { %>
 <input class="button" type="button" style="display:inline" id="addButtonDisabled" disabled="disabled" value="<%=bundle.getString("addLabel")%>"/>
-<input class="button" type="button" style="display:none" id="addButtonEnabled" name="action" onclick="this.style.display='none';document.getElementById('addButtonDisabled').style.display='inline';window.location='geoNoteAddLocation.jsp';" value="<%=bundle.getString("addLabel")%>"/>
+<input class="button" type="button" style="display:none" id="addButtonEnabled" name="action" onclick="window.location='geoNoteAddLocation.jsp';" value="<%=bundle.getString("addLabel")%>"/>
 <% } %>
 <%-- Search Button --%>
 <input class="button" type="button" value="<%=bundle.getString("searchLabel")%>" onclick="window.location='geoNoteSearch.jsp';return false;"/>
