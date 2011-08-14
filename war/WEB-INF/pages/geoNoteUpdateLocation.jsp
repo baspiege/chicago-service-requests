@@ -1,4 +1,4 @@
-<%-- This JSP has the HTML for adjust location page. --%>
+<%-- This JSP has the HTML for update location page. --%>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@ page language="java"%>
 <%@ page import="java.util.List" %>
@@ -134,8 +134,8 @@ function initialize() {
   var marker = new google.maps.Marker({
     position: latLng,
     title: 'Location',
-    map: map,
-    draggable: true
+    map: map
+    <%if(isSignedIn){%>, draggable: true <%}%>
   });
 
   // Update current position info.

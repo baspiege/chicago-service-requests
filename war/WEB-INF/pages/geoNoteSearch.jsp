@@ -1,4 +1,4 @@
-<%-- This JSP has the HTML for Geo Note page. --%>
+<%-- This JSP has the HTML for Geo Note search page. --%>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@ page language="java"%>
 <%@ page import="java.util.ResourceBundle" %>
