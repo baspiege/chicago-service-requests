@@ -91,13 +91,13 @@ function handleGeoNotesDataRequest(req) {
   tr.appendChild(thId);
   thId.appendChild(document.createTextNode("Id"));
   // Vote
-  var thAgree=document.createElement("th");
-  tr.appendChild(thAgree);
-  var distanceLink=document.createElement("a");
-  distanceLink.setAttribute("href","#");
-  distanceLink.setAttribute("onclick","reorderGeoNotesByVoteYesDescending();return false;");
-  distanceLink.appendChild(document.createTextNode("Vote"));  
-  thAgree.appendChild(distanceLink);
+  var thVote=document.createElement("th");
+  tr.appendChild(thVote);
+  var voteLink=document.createElement("a");
+  voteLink.setAttribute("href","#");
+  voteLink.setAttribute("onclick","reorderGeoNotesByVoteYesDescending();return false;");
+  voteLink.appendChild(document.createTextNode("Vote"));  
+  thVote.appendChild(voteLink);
   // Image
   var thImage=document.createElement("th");
   tr.appendChild(thImage);
@@ -105,7 +105,11 @@ function handleGeoNotesDataRequest(req) {
   // Type
   var thType=document.createElement("th");
   tr.appendChild(thType);
-  thType.appendChild(document.createTextNode("Type"));  
+  var typeLink=document.createElement("a");
+  typeLink.setAttribute("href","#");
+  typeLink.setAttribute("onclick","reorderGeoNotesByTypeAscending();return false;");
+  typeLink.appendChild(document.createTextNode("Type"));  
+  thType.appendChild(typeLink);  
   // Note
   var thNote=document.createElement("th");
   tr.appendChild(thNote);
@@ -140,6 +144,7 @@ function handleGeoNotesDataRequest(req) {
       tr.setAttribute("lon",geoNote.getAttribute("lon"));
       tr.setAttribute("yes",geoNote.getAttribute("yes"));
       tr.setAttribute("time",geoNote.getAttribute("time"));
+      tr.setAttribute("type",geoNote.getAttribute("type"));
       // Distance and bearing
       tr.appendChild(document.createElement("td"));
       // Elapse time
@@ -370,6 +375,12 @@ function sortByTimeDescending(note1,note2) {
   }
 }
 
+function sortByTypeAscending(note1,note2) {
+  var type1=note1.getAttribute("type");
+  var type2=note2.getAttribute("type");
+  return type1.localeCompare(type2);
+}
+
 function sortByVoteYesDescending(note1,note2) {
   var vote1=parseInt(note1.getAttribute("yes"));
   var vote2=parseInt(note2.getAttribute("yes"));
@@ -390,6 +401,11 @@ function reorderGeoNotesByTimeDescending() {
 function reorderGeoNotesByDistanceAscending() {
   setCookie("sortBy","distance");
   reorderGeoNotes(sortByDistanceAscending);
+}
+
+function reorderGeoNotesByTypeAscending() {
+  setCookie("sortBy","type");
+  reorderGeoNotes(sortByTypeAscending);
 }
 
 function reorderGeoNotesByVoteYesDescending() {
@@ -447,6 +463,8 @@ function updateNotesDispay() {
     reorderGeoNotesByDistanceAscending();
   } else if (sortBy=="time") {
     reorderGeoNotesByTimeDescending();
+  } else if (sortBy=="type") {
+    reorderGeoNotesByTypeAscending();
   } else if (sortBy=="voteYes") {
     reorderGeoNotesByVoteYesDescending();
   }
