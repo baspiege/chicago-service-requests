@@ -133,6 +133,7 @@ function initialize() {
     geocodePosition(marker.getPosition());
     changeLatitude=marker.getPosition().lat();
     changeLongitude=marker.getPosition().lng();
+    document.getElementById("useOverride").checked="checked";
   });
 }
 

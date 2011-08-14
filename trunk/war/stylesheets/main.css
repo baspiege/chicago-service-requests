@@ -10,3 +10,7 @@ a.add:link, a.add:visited  {text-decoration:none; color:#909090; font-size:small
 #geoNotesDiv table,#geoNotesDiv th,#geoNotesDiv td { padding: 3px; border: 1px solid black; word-wrap:break-word; }
 
 .button {margin-right:30px;}
+
+h2 { font-size: medium; margin-bottom: 0; padding-bottom: 0;}
+
+.footer { font-size:small; }
