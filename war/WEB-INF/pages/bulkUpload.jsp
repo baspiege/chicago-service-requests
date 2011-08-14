@@ -42,7 +42,6 @@
 </textarea>
 </p>
 <div style="margin-top:1.5em">
-<input class="button" type="button" name="action" value="<%=bundle.getString("cancelLabel")%>"/>
 <input class="button" type="submit" name="action" value="<%=bundle.getString("updateLabel")%>"/>
 </div>
 </form>
