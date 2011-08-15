@@ -11,6 +11,7 @@
 
     // Process based on action
     if (!StringUtils.isEmpty(action)) {
+        RequestUtils.getNumericInput(request,"type",bundle.getString("typeLabel"),true);		
         if (action.equals(bundle.getString("updateLabel"))) {		
 
             // Fields
@@ -42,6 +43,7 @@
 </textarea>
 </p>
 <div style="margin-top:1.5em">
+<%=bundle.getString("typeLabel")%>: <jsp:include page="/WEB-INF/pages/components/selectType.jsp"/> 
 <input class="button" type="submit" name="action" value="<%=bundle.getString("updateLabel")%>"/>
 </div>
 </form>
