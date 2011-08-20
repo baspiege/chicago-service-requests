@@ -116,7 +116,7 @@
 %>
 <%@ include file="/WEB-INF/pages/components/noCache.jsp" %>
 <%@ include file="/WEB-INF/pages/components/docType.jsp" %>
-<title><%=bundle.getString("geoNoteLabel")%></title>
+<title><%=bundle.getString("imageLabel")%></title>
 <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
 <style>
 form {margin: 0px 0px 0px 0px; display: inline;}
