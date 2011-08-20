@@ -14,3 +14,5 @@ a.add:link, a.add:visited  {text-decoration:none; color:#909090; font-size:small
 h2 { font-size: medium; margin-bottom: 0; padding-bottom: 0;}
 
 .footer { font-size:small; }
+
+.instructionDetails { margin-top:0 }
