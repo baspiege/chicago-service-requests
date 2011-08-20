@@ -45,62 +45,63 @@ public class GeoNoteGetAll {
                 List<GeoNote> results = new ArrayList<GeoNote>();
 
                 // Center                
+                System.out.println("center");                
                 List<GeoNote> resultsTemp = (List<GeoNote>) query.execute(latitudeCenter, longitudeCenter);
                 transferResults(results,resultsTemp);
 
                 // Left
                 boolean left=false;
                 if (latitude-latitudeCenter<.0025) {
-                    resultsTemp = (List<GeoNote>) query.execute(NumberUtils.getNumber2DecimalPrecision(latitudeCenter-.01), longitudeCenter);
+                    System.out.println("left");
+                    resultsTemp = (List<GeoNote>) query.execute(NumberUtils.addNumber2DecimalPrecision(latitudeCenter,-.01), longitudeCenter);
                     transferResults(results,resultsTemp);
                     left=true;
-                    //System.out.println("left");
                 }
 
                 // Right
                 boolean right=false;
                 if (latitude-latitudeCenter>.0075) {
-                    resultsTemp = (List<GeoNote>) query.execute(NumberUtils.getNumber2DecimalPrecision(latitudeCenter+.01), longitudeCenter);
+                    System.out.println("right");
+                    resultsTemp = (List<GeoNote>) query.execute(NumberUtils.addNumber2DecimalPrecision(latitudeCenter,.01), longitudeCenter);
                     transferResults(results,resultsTemp);
                     right=true;
-                    //System.out.println("right");
                }
 
                 // Down
                 boolean down=false;
                 if (longitudeCenter-longitude<.0025) {
-                    resultsTemp = (List<GeoNote>) query.execute(latitudeCenter, NumberUtils.getNumber2DecimalPrecision(longitudeCenter+.01));
+                    System.out.println("down");
+                    resultsTemp = (List<GeoNote>) query.execute(latitudeCenter, NumberUtils.addNumber2DecimalPrecision(longitudeCenter,.01));
                     transferResults(results,resultsTemp);
                     down=true;
-                    //System.out.println("down");
                 }
 
                 // Up
                 boolean up=false;
                 if (longitudeCenter-longitude>.0075) {
-                    resultsTemp = (List<GeoNote>) query.execute(latitudeCenter, NumberUtils.getNumber2DecimalPrecision(longitudeCenter-.01));
+                    System.out.println("up");
+                    resultsTemp = (List<GeoNote>) query.execute(latitudeCenter, NumberUtils.addNumber2DecimalPrecision(longitudeCenter,-.01));
                     transferResults(results,resultsTemp);
                     up=true;
-                    //System.out.println("up");
                 }
 
                 // Corners
                 if (left && up) {
-                    resultsTemp = (List<GeoNote>) query.execute(NumberUtils.getNumber2DecimalPrecision(latitudeCenter-.01), NumberUtils.getNumber2DecimalPrecision(longitudeCenter-.01));
+                    System.out.println("left up");
+                    resultsTemp = (List<GeoNote>) query.execute(NumberUtils.addNumber2DecimalPrecision(latitudeCenter,-.01), NumberUtils.addNumber2DecimalPrecision(longitudeCenter,-.01));
                     transferResults(results,resultsTemp);
-                    //System.out.println("left up");
                 } else if (left && down) {
-                    resultsTemp = (List<GeoNote>) query.execute(NumberUtils.getNumber2DecimalPrecision(latitudeCenter-.01), NumberUtils.getNumber2DecimalPrecision(longitudeCenter+.01));
+                    System.out.println("left down");
+                    resultsTemp = (List<GeoNote>) query.execute(NumberUtils.addNumber2DecimalPrecision(latitudeCenter,-.01), NumberUtils.addNumber2DecimalPrecision(longitudeCenter,.01));
                     transferResults(results,resultsTemp);
-                    //System.out.println("left down");
                 } else if (right && up) {
-                    resultsTemp = (List<GeoNote>) query.execute(NumberUtils.getNumber2DecimalPrecision(latitudeCenter+.01), NumberUtils.getNumber2DecimalPrecision(longitudeCenter-.01));
+                    System.out.println("right up");
+                    resultsTemp = (List<GeoNote>) query.execute(NumberUtils.addNumber2DecimalPrecision(latitudeCenter,.01), NumberUtils.addNumber2DecimalPrecision(longitudeCenter,-.01));
                     transferResults(results,resultsTemp);
-                    //System.out.println("right up");
                 } else if (right && down) {
-                    resultsTemp = (List<GeoNote>) query.execute(NumberUtils.getNumber2DecimalPrecision(latitudeCenter+.01), NumberUtils.getNumber2DecimalPrecision(longitudeCenter+.01));
+                    System.out.println("right down");
+                    resultsTemp = (List<GeoNote>) query.execute(NumberUtils.addNumber2DecimalPrecision(latitudeCenter,.01), NumberUtils.addNumber2DecimalPrecision(longitudeCenter,.01));
                     transferResults(results,resultsTemp);
-                    //System.out.println("right down");
                 }
 
                 // Set into request
@@ -130,7 +131,7 @@ public class GeoNoteGetAll {
      */
     public void transferResults(List<GeoNote> results, List<GeoNote> resultsTemp) {    
         // Bug workaround.  Get size actually triggers the underlying database call.
-        resultsTemp.size();
+        System.out.println( resultsTemp.size() );
         for (GeoNote note: resultsTemp) {
           results.add(note);
         }
