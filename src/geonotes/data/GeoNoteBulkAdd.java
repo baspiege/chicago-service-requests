@@ -36,38 +36,42 @@ public class GeoNoteBulkAdd {
             String notes[] = notesInput.split("\\r?\\n");
             DateFormat formatter = new SimpleDateFormat("MM/dd/yy");
             for (int i=0;i<notes.length;i++) {
-                String parts[] = notes[i].split(",");
-                GeoNote geoNote=new GeoNote();
+                try {
+                    String parts[] = notes[i].split(",");
+                    GeoNote geoNote=new GeoNote();
 
-                // If parts > 1
-                if (parts.length>3) {
-                    // First is date.
-                    geoNote.setLastUpdateTime((Date)formatter.parse(parts[0]));
-                    // Second is type.
-                    String typeString=(String)parts[1];
-                    long type=getTypeBasedOnLabel(typeString);
-                    geoNote.setType(type);
-                    // Special types
-                    if (parts.length==6){
-                        // Example: 08/10/2011,Graffiti Removal,Brick - Painted,Front,41.93571207328131,-87.70261319521063                           
-                        geoNote.setNote(parts[2] + " " + parts[3]);
-                        geoNote.setLatitude(new Double(parts[4]).doubleValue());
-                        geoNote.setLongitude(new Double(parts[5]).doubleValue());
-                    } else if (parts.length==5) {
-                        // Example: 08/10/2011,Tree Debris,Alley,41.93571207328131,-87.70261319521063                           
-                        geoNote.setNote(parts[2]);
-                        geoNote.setLatitude(new Double(parts[3]).doubleValue());
-                        geoNote.setLongitude(new Double(parts[4]).doubleValue());
-                    } else if (parts.length==5) {
-                        // Example: 08/10/2011,Pot Hole in Street,41.93571207328131,-87.70261319521063                           
-                        geoNote.setLatitude(new Double(parts[2]).doubleValue());
-                        geoNote.setLongitude(new Double(parts[3]).doubleValue());
-                    } else {
-                        throw new RuntimeException("Parts not valid: " + notes[i]);
+                    // If parts > 1
+                    if (parts.length>3) {
+                        // First is date.
+                        geoNote.setLastUpdateTime((Date)formatter.parse(parts[0]));
+                        // Second is type.
+                        String typeString=(String)parts[1];
+                        long type=getTypeBasedOnLabel(typeString);
+                        geoNote.setType(type);
+                        // Special types
+                        if (parts.length==6){
+                            // Example: 08/10/2011,Graffiti Removal,Brick - Painted,Front,41.93571207328131,-87.70261319521063                           
+                            geoNote.setNote(parts[2] + " " + parts[3]);
+                            geoNote.setLatitude(new Double(parts[4]).doubleValue());
+                            geoNote.setLongitude(new Double(parts[5]).doubleValue());
+                        } else if (parts.length==5) {
+                            // Example: 08/10/2011,Tree Debris,Alley,41.93571207328131,-87.70261319521063                           
+                            geoNote.setNote(parts[2]);
+                            geoNote.setLatitude(new Double(parts[3]).doubleValue());
+                            geoNote.setLongitude(new Double(parts[4]).doubleValue());
+                        } else if (parts.length==4) {
+                            // Example: 08/10/2011,Pot Hole in Street,41.93571207328131,-87.70261319521063                           
+                            geoNote.setLatitude(new Double(parts[2]).doubleValue());
+                            geoNote.setLongitude(new Double(parts[3]).doubleValue());
+                        } else {
+                            throw new RuntimeException("Parts not valid: " + notes[i]);
+                        }
+                        geoNote.setYes(0);
+                        geoNote.setUser("CityDataPortal");
+                        pm.makePersistent(geoNote);
                     }
-                    geoNote.setYes(0);
-                    geoNote.setUser("CityDataPortal");
-                    pm.makePersistent(geoNote);
+                } catch (Exception e) {
+                        System.err.println("Error processing: " + notes[i] + ": " + e);
                 }
             }
         } catch (Exception e) {
