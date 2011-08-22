@@ -89,7 +89,6 @@ public class GeoNoteBulkAdd {
      * @since 1.0
      */
     public long getTypeBasedOnLabel(String aType) {
-        System.out.println(aType);
         long type=0;
         
         /*
