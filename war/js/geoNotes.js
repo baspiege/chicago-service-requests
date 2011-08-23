@@ -84,7 +84,7 @@ function handleGeoNotesDataRequest(req) {
   var timeLink=document.createElement("a");
   timeLink.setAttribute("href","#");
   timeLink.setAttribute("onclick","reorderGeoNotesByTimeDescending();return false;");
-  timeLink.appendChild(document.createTextNode("Time"));  
+  timeLink.appendChild(document.createTextNode("Time Ago"));  
   thTime.appendChild(timeLink);
   // Id
   var thId=document.createElement("th");
@@ -507,7 +507,7 @@ function getElapsedTime(oldSeconds,newSeconds){
         display=Math.round(hours)+" hr";
       } else {
         var days=hours/24;
-        display=Math.round(days)+" day";
+        display=Math.round(days)+" days";
       }
     }
   }
