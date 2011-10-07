@@ -226,7 +226,7 @@ function sendYesVote(elem) {
   var id=parseInt(tr.getAttribute("id"));
   tr.setAttribute("yes",yes+1);
   elem.innerHTML=yes+1;
-  sendRequest('GeoNoteVote.jsp?vote=yes&id='+id);
+  sendRequest('geoNoteVote.jsp?vote=yes&id='+id);
 }
 
 ///////////////////
